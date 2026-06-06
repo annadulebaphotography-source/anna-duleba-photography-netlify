@@ -51,6 +51,30 @@
             text-align: center;
         }
 
+        .studio-intro-grid {
+            display: grid;
+            grid-template-columns: minmax(220px, .42fr) minmax(0, .58fr);
+            gap: 28px;
+            align-items: start;
+            margin: 0 0 24px;
+        }
+
+        .studio-intro-image img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .studio-intro-text p {
+            margin: 0 0 16px;
+        }
+
+        .studio-intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
         .gallery-grid {
             margin-top: 34px;
         }
@@ -109,6 +133,10 @@
         }
 
         @media (max-width: 900px) {
+            .studio-intro-grid {
+                grid-template-columns: 1fr;
+            }
+
             .studio-note-grid {
                 grid-template-columns: 1fr;
             }
@@ -163,7 +191,7 @@
     </div>
 </nav>
 
-        <button class="mobile-menu-toggle" type="button" aria-label="Men&uuml; &ouml;ffnen" aria-expanded="false">
+        <button class="mobile-menu-toggle" type="button" aria-label="Men? ?ffnen" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -187,61 +215,49 @@
         <div class="content-wrapper">
             <div class="content-frame">
                 <div class="content-card">
-                    <p class="section-label" data-editable="studio.label">STUDIO IN WALZBACHTAL</p>
-                    <h1 class="main-title" data-editable="studio.h1">Ein ruhiger Ort f&uuml;r zeitlose Erinnerungen</h1>
-                    <p class="subtitle" data-editable="studio.subtitle">
-                        Warm, hell und liebevoll vorbereitet - mein Studio ist ein gesch&uuml;tzter Raum f&uuml;r Neugeborene,
-                        werdende Mamas, Familien und Portraits.
-                    </p>
+                    <h1 class="main-title" data-editable="studio.h1">Mein neues Fotostudio in Walzbachtal</h1>
+                    <p class="subtitle" data-editable="studio.subtitle">Raum für zeitlose Erinnerungen</p>
 
-                    <p class="button-group" style="justify-content:center;margin-bottom:28px;" data-editable="studio.cta">
-                        <a href="kontakt.html" class="btn-primary">Termin anfragen</a>
-                        <a href="#studio-galerie" class="btn-secondary">Studio ansehen</a>
-                    </p>
-
-                    <p class="content-text-full" data-editable="studio.intro-1">
-                        Mein Studio in Walzbachtal bei Karlsruhe ist bewusst ruhig, warm und reduziert gestaltet.
-                        Hier darfst Du ankommen, durchatmen und Dich fallen lassen. Gerade bei Neugeborenen,
-                        Babybauch- und Familienshootings ist diese entspannte Atmosph&auml;re die Basis f&uuml;r Bilder,
-                        die sich nat&uuml;rlich, weich und echt anf&uuml;hlen.
-                    </p>
-
-                    <p class="content-text-full" data-editable="studio.intro-2">
-                        Ich arbeite mit sanftem Licht, harmonischen Farben und ausgew&auml;hlten Stoffen,
-                        Decken und Accessoires. Alles ist so vorbereitet, dass Ihr Euch nicht um Details k&uuml;mmern m&uuml;sst:
-                        Das Studio ist angenehm temperiert, die Sets sind liebevoll aufgebaut und es bleibt genug Zeit
-                        f&uuml;r Pausen, Stillen, Kuscheln oder einen Kaffee.
-                    </p>
-
-                    <div class="studio-note-grid">
-                        <div class="studio-note">
-                            <strong data-editable="studio.note-1-title">W&auml;rme &amp; Sicherheit</strong>
-                            <p data-editable="studio.note-1-text">Besonders f&uuml;r Neugeborene ist das Studio warm, ruhig und sicher vorbereitet.</p>
+                    <div class="studio-intro-grid">
+                        <div class="studio-intro-image">
+                            <img src="../assets/images/workshop-studio-light.jpg" alt="Anna Duleba Photography Fotostudio in Walzbachtal" data-editable-image="studio.intro-image">
                         </div>
-                        <div class="studio-note">
-                            <strong data-editable="studio.note-2-title">Nat&uuml;rliche Farben</strong>
-                            <p data-editable="studio.note-2-text">Sanfte Naturt&ouml;ne, feine Stoffe und zeitlose Details sorgen f&uuml;r einen harmonischen Look.</p>
-                        </div>
-                        <div class="studio-note">
-                            <strong data-editable="studio.note-3-title">Zeit zum Ankommen</strong>
-                            <p data-editable="studio.note-3-text">Ohne Hektik und ohne Druck entsteht Raum f&uuml;r echte N&auml;he und entspannte Momente.</p>
+
+                        <div class="studio-intro-text">
+                            <p class="content-text-full" data-editable="studio.intro-1">
+                                Mein neues Fotostudio in <strong>Walzbachtal</strong> umfasst rund <strong>60 m²</strong> und bietet viel Raum für ganz unterschiedliche Bildwelten. Die helle, ruhige Atmosphäre und das weiche natürliche Licht schaffen einen Ort, an dem sich Familien, werdende Mamas und Neugeborene sofort wohlfühlen können.
+                            </p>
+
+                            <p class="content-text-full" data-editable="studio.intro-2">
+                                Das Studio verfügt über einen <strong>klassischen Aufnahmebereich mit Leinwandhintergründen</strong> für zeitlose, elegante Portraits sowie über einen <strong>liebevoll eingerichteten Neugeborenen- und Familienraum</strong> für natürliche, warme und emotionale Aufnahmen.
+                            </p>
+
+                            <p class="content-text-full" data-editable="studio.intro-3">
+                                So entstehen Bilder mit ganz unterschiedlicher Wirkung – von klassisch und reduziert bis weich, modern und voller Nähe. Mein Ziel ist es, Euch nicht nur schöne Fotos zu schenken, sondern Erinnerungen, die sich auch Jahre später noch echt anfühlen.
+                            </p>
                         </div>
                     </div>
 
-                    <h2 class="section-heading" data-editable="studio.h2-1">Atmosph&auml;re statt Studiohektik</h2>
-                    <p class="content-text-full" data-editable="studio.text-3">
-                        Viele Familien erz&auml;hlen mir, dass sie sich nach wenigen Minuten wie zuhause f&uuml;hlen.
-                        Genau das ist mein Wunsch: ein Ort, der nicht wie ein k&uuml;hler Fotoraum wirkt,
-                        sondern wie ein kleines Atelier voller Ruhe, Licht und Geborgenheit.
+                    <h2 class="section-heading" data-editable="studio.h2-1">Zwei stilvolle Bereiche für unterschiedliche Bildwelten</h2>
+
+                    <p class="content-text-full" data-editable="studio.text-1">
+                        Der <strong>klassische Studiobereich</strong> eignet sich ideal für elegante Portraits, Babybauchfotos und fein abgestimmte Aufnahmen mit Leinwandhintergründen. Im <strong>Neugeborenen- und Familienbereich</strong> entstehen dagegen natürliche und zeitlose Bilder mit einer besonders weichen, harmonischen Ausstrahlung.
                     </p>
 
-                    <h2 class="section-heading" data-editable="studio.h2-2">F&uuml;r welche Shootings ist das Studio geeignet?</h2>
-                    <ul class="content-list">
-                        <li data-editable="studio.li-1">Neugeborenenfotos mit sicheren, warmen und liebevoll vorbereiteten Sets</li>
-                        <li data-editable="studio.li-2">Babybauchfotos mit Kleidern, Stoffen und ruhigem Licht</li>
-                        <li data-editable="studio.li-3">Familien- und Geschwisterbilder in einer entspannten Atmosph&auml;re</li>
-                        <li data-editable="studio.li-4">Frauenportraits und Fine-Art-Aufnahmen mit klarer, zeitloser Bildsprache</li>
-                    </ul>
+                    <p class="content-text-full" data-editable="studio.text-2">
+                        Beide Bereiche sind so gestaltet, dass sie Ruhe, Wärme und Stil miteinander verbinden. Dadurch kann jede Session individuell auf Euch und Eure Wünsche abgestimmt werden.
+                    </p>
+
+                    <h2 class="section-heading" data-editable="studio.h2-2">Ein Studio zum Ankommen und Wohlfühlen</h2>
+
+                    <p class="content-text-full" data-editable="studio.text-3">
+                        Gerade bei Neugeborenen-Shootings ist eine entspannte Atmosphäre besonders wichtig. Deshalb habe ich mein Studio so eingerichtet, dass es nicht nur schön aussieht, sondern sich auch wirklich gut anfühlt – ruhig, hell, liebevoll und mit viel Platz für echte Momente.
+                    </p>
+
+                    <p class="button-group" style="justify-content:center;margin-top:24px;" data-editable="studio.cta">
+                        <a href="kontakt.html" class="btn-primary">Kontakt &amp; Anfrage</a>
+                        <a href="preisliste.html" class="btn-secondary">Pakete &amp; Preise</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -255,7 +271,7 @@
                         <p class="section-label" data-editable="studio.gallery-label">STUDIO GALERIE</p>
                         <h2 class="section-heading" data-editable="studio.gallery-heading">Einblicke in mein Studio</h2>
                         <p class="subtitle" data-editable="studio.gallery-text">
-                            Hier ist Platz f&uuml;r aktuelle Studiofotos, Details, Sets und kleine Einblicke hinter die Kulissen.
+                            Hier ist Platz f?r aktuelle Studiofotos, Details, Sets und kleine Einblicke hinter die Kulissen.
                         </p>
                     </div>
 
@@ -280,11 +296,11 @@
     <div class="site-footer-inner">
         <div class="site-footer-brand">
             <p class="site-footer-title">Anna Duleba Photography</p>
-            <p>Fotografie f&uuml;r Neugeborene, Babybauch, Familie und Fine Art in Walzbachtal &amp; Karlsruhe.</p>
+            <p>Fotografie f?r Neugeborene, Babybauch, Familie und Fine Art in Walzbachtal &amp; Karlsruhe.</p>
         </div>
 
         <div class="site-footer-contact">
-            <p>Friedhofstr. 10, 75045 Walzbachtal-J&ouml;hlingen</p>
+            <p>Friedhofstr. 10, 75045 Walzbachtal-J?hlingen</p>
             <p><a href="mailto:annadulebaphotography@gmail.com">annadulebaphotography@gmail.com</a></p>
             <p><a href="tel:+4915785785865">0157 85785865</a></p>
         </div>

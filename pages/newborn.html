@@ -54,6 +54,37 @@
         .newborn-booking-cta .btn-secondary {
             display: inline-block;
         }
+
+        .newborn-story-block {
+            margin: 34px 0;
+            padding: 28px 24px;
+            border: 1px solid #eadfd3;
+            border-radius: 8px;
+            background: #fff7ef;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .newborn-story-block .wide-image-frame {
+            margin: 0 0 22px;
+        }
+
+        .newborn-story-block .wide-image-slot {
+            min-height: 280px;
+        }
+
+        .newborn-story-block h2 {
+            margin-top: 0;
+        }
+
+        @media (max-width: 640px) {
+            .newborn-story-block {
+                padding: 22px 16px;
+            }
+
+            .newborn-story-block .wide-image-slot {
+                min-height: 210px;
+            }
+        }
     </style>
 
 </head>
@@ -98,7 +129,7 @@
     </div>
 </nav>
 
-        <button class="mobile-menu-toggle" type="button" aria-label="Men&uuml; &ouml;ffnen" aria-expanded="false">
+        <button class="mobile-menu-toggle" type="button" aria-label="Men? ?ffnen" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -196,7 +227,7 @@
 
                             <div class="newborn-booking-cta">
                                 <p class="newborn-booking-cta-title" data-editable="newborn.p-8">Euren Newborn-Termin planen</p>
-                                <p class="newborn-booking-cta-text" data-editable="newborn.p-9">Die ersten Tage vergehen schneller, als man denkt. Wenn euch dieser Bildstil anspricht, k&ouml;nnt ihr euren Termin bereits w&auml;hrend der Schwangerschaft vormerken.</p>
+                                <p class="newborn-booking-cta-text" data-editable="newborn.p-9">Die ersten Tage vergehen schneller, als man denkt. Wenn euch dieser Bildstil anspricht, k?nnt ihr euren Termin bereits w?hrend der Schwangerschaft vormerken.</p>
                                 <a href="#newborn-booking" class="btn-secondary">Termin anfragen</a>
                             </div>
 
@@ -259,7 +290,7 @@
 
                             <div class="newborn-booking-cta">
                                 <p class="newborn-booking-cta-title" data-editable="newborn.p-18">Newborn-Termin rechtzeitig anfragen</p>
-                                <p class="newborn-booking-cta-text" data-editable="newborn.p-19">Die sch&ouml;nsten Newborn-Bilder entstehen meist in den ersten 5&ndash;14 Lebenstagen. Sichert euch entspannt einen passenden Termin.</p>
+                                <p class="newborn-booking-cta-text" data-editable="newborn.p-19">Die sch?nsten Newborn-Bilder entstehen meist in den ersten 5&ndash;14 Lebenstagen. Sichert euch entspannt einen passenden Termin.</p>
                                 <a href="#newborn-booking" class="btn-secondary">Termin anfragen</a>
                             </div>
 
@@ -301,8 +332,8 @@
                             <p class="content-text-full" data-editable="newborn.p-27">Eine detaillierte Übersicht über alle Pakete finden Sie hier:<br /><a href="preisliste.html#newborn-preise" class="jimdo-link">Zur Preisliste</a></p>
 
                             <div class="newborn-booking-cta">
-                                <p class="newborn-booking-cta-title" data-editable="newborn.p-28">Platz f&uuml;r euer Neugeborenenshooting sichern</p>
-                                <p class="newborn-booking-cta-text" data-editable="newborn.p-29">Ihr kennt nun Ablauf und Preise. Gerne reserviere ich einen passenden Termin f&uuml;r eure Familie.</p>
+                                <p class="newborn-booking-cta-title" data-editable="newborn.p-28">Platz f?r euer Neugeborenenshooting sichern</p>
+                                <p class="newborn-booking-cta-text" data-editable="newborn.p-29">Ihr kennt nun Ablauf und Preise. Gerne reserviere ich einen passenden Termin f?r eure Familie.</p>
                                 <a href="#newborn-booking" class="btn-secondary">Termin anfragen</a>
                             </div>
 
@@ -344,7 +375,7 @@
                                             color:#6b4c35;
                                             white-space:nowrap;
                                             flex:0 0 auto;">
-                                            &ouml;ffnen &rarr;
+                                            ?ffnen &rarr;
                                         </span>
 
                                     </summary>
@@ -360,7 +391,7 @@
                                             <strong>Mo&ndash;Fr um 10:00 Uhr</strong>
                                             &middot; Dauer ca.
                                             <strong>180 Min</strong>.
-                                            W&auml;hle einfach einen freien Tag &ndash; du erh&auml;ltst direkt eine Best&auml;tigung per E-Mail.
+                                            W?hle einfach einen freien Tag &ndash; du erh?ltst direkt eine Best?tigung per E-Mail.
                                         </div>
 
                                         <div id="newbornBookingLoader" style="
@@ -400,7 +431,7 @@
                                             font-size:12px;
                                             color:#6f6a63;
                                             line-height:1.5;">
-                                            Hinweis: Das ist eine Vormerkung &ndash; ich melde mich danach pers&ouml;nlich mit allen Details.<br>
+                                            Hinweis: Das ist eine Vormerkung &ndash; ich melde mich danach pers?nlich mit allen Details.<br>
                                             Wichtig: Bitte nutze diese Reservierung erst nach der Geburt, optimal innerhalb der ersten 5&ndash;14 Lebenstage.
                                         </div>
 
@@ -408,6 +439,84 @@
 
                                 </details>
 
+                            </div>
+
+                            <div class="newborn-story-block">
+                                <div class="wide-image-frame">
+                                    <a class="jimdo-image-link" href="#" target="_blank" rel="noopener">
+                                        <div class="wide-image-slot" data-image-slot aria-hidden="true" title="Klicke, um Bild hochzuladen (lokale Vorschau)" data-editable-image="newborn.fineart-image"></div>
+                                    </a>
+                                </div>
+
+                                <h2 class="section-heading" data-editable="newborn.h2-22">Fine Art Neugeborenenfotografie in Karlsruhe &amp; Pforzheim</h2>
+
+                                <p class="content-text-full" data-editable="newborn.p-46">
+                                    <strong>Fine Art Neugeborenenfotografie</strong> steht für Reduktion, Ruhe und bewusste Gestaltung. In meinem Studio nahe Karlsruhe entstehen <strong>Fine Art Newborn Shootings</strong>, bei denen jedes Detail zurücktritt, damit das Wesentliche sichtbar wird: die Zartheit, die Form und die Stille der ersten Lebenstage.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-47">
+                                    Ich arbeite mit ausgewählten Stoffen, harmonischen Naturtönen und einem sehr klaren Bildaufbau. Licht, Haltung und Komposition sind bewusst reduziert – <strong>denn gerade bei Neugeborenen ist Ruhe der größte Luxus</strong>. So entstehen zeitlose <strong>Fine Art Babyfotos</strong>, die wie kleine Kunstwerke wirken.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-48">
+                                    Diese Form der <strong>Neugeborenenfotografie</strong> wird besonders von Familien aus <strong>Karlsruhe, Pforzheim, Ettlingen, Durlach und dem Enzkreis</strong> geschätzt, die sich minimalistische, hochwertige Bilder wünschen – geschaffen für edle Prints, Alben und langfristige Erinnerungen.
+                                </p>
+
+                                <p class="button-group" style="justify-content:center;margin-top:22px;">
+                                    <a href="newborn-fineart-galerie.html" class="btn-secondary">Fine Art Galerie ansehen</a>
+                                </p>
+                            </div>
+
+                            <div class="newborn-story-block">
+                                <div class="wide-image-frame">
+                                    <a class="jimdo-image-link" href="#" target="_blank" rel="noopener">
+                                        <div class="wide-image-slot" data-image-slot aria-hidden="true" title="Klicke, um Bild hochzuladen (lokale Vorschau)" data-editable-image="newborn.geschwister-image"></div>
+                                    </a>
+                                </div>
+
+                                <h2 class="section-heading" data-editable="newborn.h2-20">Neugeborenenfotos mit Geschwistern in Karlsruhe &amp; Walzbachtal</h2>
+
+                                <p class="content-text-full" data-editable="newborn.p-40">
+                                    <strong>Neugeborenenfotografie mit Geschwistern</strong> ist etwas ganz Besonderes – und braucht vor allem Ruhe. In meinem Studio in Pfinztal (nahe Karlsruhe) entstehen Geschwisterbilder ohne Druck: liebevoll, natürlich und im Tempo der Kinder.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-41">
+                                    Nicht jedes Kind möchte „posieren“ – und das muss es auch nicht. Ich arbeite mit kleinen, sanften Impulsen, damit echte Momente entstehen: ein Blick, eine kleine Berührung, ein ruhiges Nebeneinander. <strong>Weniger ist hier oft mehr</strong> – genau das macht diese Bilder so zeitlos.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-42">
+                                    Viele Familien aus <strong>Karlsruhe, Pforzheim , Durlach, Grötzingen, Ettlingen, Weingarten</strong> und Umgebung entscheiden sich für dieses <strong>Newborn Shooting</strong>, weil es nicht inszeniert wirkt – sondern ehrlich. So entstehen <strong>Babyfotos</strong>, die Verbundenheit zeigen und auch nach Jahren noch berühren.
+                                </p>
+
+                                <p class="button-group" style="justify-content:center;margin-top:22px;">
+                                    <a href="newborn-geschwister-galerie.html" class="btn-secondary">Geschwister Galerie ansehen</a>
+                                </p>
+                            </div>
+
+                            <div class="newborn-story-block">
+                                <div class="wide-image-frame">
+                                    <a class="jimdo-image-link" href="#" target="_blank" rel="noopener">
+                                        <div class="wide-image-slot" data-image-slot aria-hidden="true" title="Klicke, um Bild hochzuladen (lokale Vorschau)" data-editable-image="newborn.eltern-image"></div>
+                                    </a>
+                                </div>
+
+                                <h2 class="section-heading" data-editable="newborn.h2-21">Neugeborenenfotos mit Eltern in Karlsruhe &amp; Walzbachtal</h2>
+
+                                <p class="content-text-full" data-editable="newborn.p-43">
+                                    Die ersten Tage mit eurem Baby sind leise, intensiv und voller Nähe. In meinen <strong>Neugeborenenfotos mit Eltern</strong> halte ich genau diese besonderen Momente fest – ruhig, natürlich und ohne Druck. Dieses <strong>Newborn Shooting in Karlsruhe</strong> konzentriert sich ganz auf Verbindung und Geborgenheit.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-44">
+                                    Sanfte Berührungen, schützende Hände und das Gefühl des gemeinsamen Ankommens stehen im Mittelpunkt. Es geht nicht um Posen, sondern um echte Nähe. So entstehen <strong>zeitlose Babyfotos</strong>, die zeigen, wie sich diese erste Zeit als Familie wirklich angefühlt hat.
+                                </p>
+
+                                <p class="content-text-full" data-editable="newborn.p-45">
+                                    Viele Familien aus <strong>Karlsruhe, Pforzheim , Durlach, Grötzingen, Ettlingen, Weingarten</strong> und Umgebung entscheiden sich bewusst für diese Form der <strong>Neugeborenenfotografie</strong>, weil sie ehrlich ist – reduziert, emotional und dauerhaft wertvoll.
+                                </p>
+
+                                <p class="button-group" style="justify-content:center;margin-top:22px;">
+                                    <a href="newborn-familie-galerie.html" class="btn-secondary">Mit Familie Galerie ansehen</a>
+                                </p>
                             </div>
 
                             <h2 class="section-heading" data-editable="newborn.h2-10">Weitere Tipps rund um die Neugeborenenfotografie</h2>
@@ -497,7 +606,7 @@
                     <div class="content-card">
                         <p class="section-label" data-editable="newborn.p-32">NEWBORN GALERIEN</p>
                         <h2 class="section-heading" data-editable="newborn.h2-11">Newborn Galerien entdecken</h2>
-                        <p class="subtitle" data-editable="newborn.p-33">W&auml;hle den Bildstil, der zu euch und eurer Familie passt.</p>
+                        <p class="subtitle" data-editable="newborn.p-33">W?hle den Bildstil, der zu euch und eurer Familie passt.</p>
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:28px;">
                                 <a href="newborn-fineart-galerie.html" style="display:block;padding:18px 20px;border-radius:18px;background:#f5f1ea;border:1px solid rgba(0,0,0,.06);text-decoration:none;color:inherit;text-align:center;letter-spacing:.08em;text-transform:uppercase;font-size:13px;">Fine Art Galerie</a>
                                 <a href="newborn-familie-galerie.html" style="display:block;padding:18px 20px;border-radius:18px;background:#f5f1ea;border:1px solid rgba(0,0,0,.06);text-decoration:none;color:inherit;text-align:center;letter-spacing:.08em;text-transform:uppercase;font-size:13px;">Mit Familie Galerie</a>

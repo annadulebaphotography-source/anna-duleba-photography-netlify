@@ -230,31 +230,45 @@
     async function uploadImage(file) {
         if (!activeImage || !file || !isEditModeActive()) return;
         const key = activeImage.dataset.editableImage;
-        const form = new FormData();
-        form.append('page', page);
-        form.append('key', key);
-        form.append('alt', panel.querySelector('[data-image-alt]').value.trim());
-        form.append('title', panel.querySelector('[data-image-title]').value.trim());
-        form.append('image', file);
+        const alt = panel.querySelector('[data-image-alt]').value.trim();
+        const title = panel.querySelector('[data-image-title]').value.trim();
 
         const saveButton = panel.querySelector('[data-image-save]');
         saveButton.disabled = true;
         setStatus('Upload läuft...');
         try {
-            const response = await fetch('/api/content/images', {
+            const response = await fetch('/__cms/images', {
                 method: 'POST',
                 credentials: 'same-origin',
-                body: form,
+                headers: {
+                    'Content-Type': file.type || 'image/jpeg',
+                    'X-CMS-Page': page,
+                    'X-CMS-Key': key,
+                    'X-File-Name': encodeURIComponent(file.name || 'image.jpg'),
+                },
+                body: file,
             });
             const data = await response.json().catch(() => ({}));
             if (!response.ok) throw new Error(data.error || 'Image upload failed');
-            content = data.content || content;
+
+            const nextData = { src: data.src || '', alt, title };
+            const saveResponse = await fetch('/api/content', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ page, fields: { [key]: nextData } }),
+            });
+            const saveData = await saveResponse.json().catch(() => ({}));
+            if (!saveResponse.ok) throw new Error(saveData.error || 'Image metadata save failed');
+
+            content = saveData || content;
             const saved = content[page]?.[key];
-            const nextData = saved && typeof saved === 'object'
-                ? saved
-                : { src: data.file || '', alt: panel.querySelector('[data-image-alt]').value.trim(), title: panel.querySelector('[data-image-title]').value.trim() };
-            applyImageData(activeImage, nextData);
-            panel.querySelector('.adp-content-image-panel__preview img').src = publicUrl(nextData.src);
+            const renderedData = saved && typeof saved === 'object' ? saved : nextData;
+            applyImageData(activeImage, renderedData);
+            panel.querySelector('.adp-content-image-panel__preview img').src = publicUrl(renderedData.src);
             activeImage.classList.add('adp-inline-edited');
             window.adpEditMode?.markDirty?.();
             setStatus('Gespeichert');

@@ -1,6 +1,22 @@
 [build]
   command = "node tools/build-netlify-site.cjs"
   publish = "netlify-site"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/__cms/*"
+  to = "/.netlify/functions/cms/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/content"
+  to = "/.netlify/functions/cms/api/content"
+  status = 200
+
+[[redirects]]
+  from = "/api/content/images"
+  to = "/.netlify/functions/cms/api/content/images"
+  status = 200
 
 [[headers]]
   for = "/*"

@@ -157,6 +157,7 @@ mkdir(out);
 
 copyFile(path.join(root, 'index.html'), path.join(out, 'index.html'));
 copyDir(path.join(root, 'assets'), path.join(out, 'assets'), (relative) => {
+  if (relative.endsWith('.code-workspace')) return false;
   return ![
     'assets/images/preisliste.html',
     'assets/images/imgres.htm',
