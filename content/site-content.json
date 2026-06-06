@@ -1,0 +1,49 @@
+{
+  "pages/familie.html": {
+    "familie.slot-2": {
+      "src": "assets/images/content/pages-familie-html-familie.slot-2-1780652484818.webp",
+      "alt": "",
+      "title": "Klicke, um Bild hochzuladen (lokale Vorschau)"
+    },
+    "familie.slot-1": {
+      "src": "assets/images/content/pages-familie-html-familie.slot-1-1780652509481.webp",
+      "alt": "",
+      "title": "Klicke, um Bild hochzuladen (lokale Vorschau)"
+    }
+  },
+  "pages/newborn.html": {
+    "newborn.hero-image": {
+      "src": "assets/images/content/pages-newborn-html-newborn.hero-image-1780430982669.png",
+      "alt": "Newborn Fotografie Anna Duleba Photography",
+      "title": ""
+    },
+    "newborn.slot-1": {
+      "src": "assets/images/content/pages-newborn-html-newborn.slot-1-1780432799635.jpg",
+      "alt": "",
+      "title": "newborn"
+    },
+    "newborn.slot-2": {
+      "src": "assets/images/content/pages-newborn-html-newborn.slot-2-1780431067419.jpg",
+      "alt": "",
+      "title": "Klicke, um Bild hochzuladen (lokale Vorschau)"
+    }
+  },
+  "pages/babybauch.html": {
+    "babybauch.slot-1": {
+      "src": "assets/images/content/pages-babybauch-html-babybauch.slot-1-1780432909530.jpg",
+      "alt": "",
+      "title": "Klicke, um Bild hochzuladen (lokale Vorschau)"
+    }
+  },
+  "pages/frauenfotografie.html": {},
+  "pages/kinderfotografie.html": {},
+  "pages/kontakt.html": {},
+  "pages/preisliste.html": {},
+  "pages/saisonale-angebote.html": {},
+  "blog": {
+    "blog.category-newborn-image": "assets/images/blog-cms/blog-blog.category-newborn-image-1780417773767.jpg"
+  },
+  "pages/workshop.html": {},
+  "pages/digital-atelier.html": {},
+  "home": {}
+}

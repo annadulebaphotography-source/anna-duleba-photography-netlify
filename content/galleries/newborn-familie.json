@@ -1,0 +1,193 @@
+{
+  "id": "newborn-familie",
+  "title": "Newborn mit Familie Galerie",
+  "slug": "newborn-familie-galerie",
+  "category": "Newborn",
+  "categoryPage": "newborn.html",
+  "status": "draft",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Newborn mit Familie Galerie | Anna Duleba Photography",
+    "description": "Emotionale Newborn Familienbilder mit Eltern und Geschwistern.",
+    "canonical": "https://www.annadulebaphotography.de/pages/newborn-familie-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/newborn-familie",
+    "filePrefix": "newborn-familie",
+    "defaultAltPattern": "Newborn mit Familie Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "newborn-familie-1780723348963-1",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1764408846-3-20260606052228.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723348973-2",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-1-20260606052228.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 2,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723348985-3",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-2-20260606052228.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 3,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723348995-4",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-3-20260606052228.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 4,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349008-5",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-4-20260606052228.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 5,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349015-6",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-5-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 6,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349027-7",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-6-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 7,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349040-8",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-7-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 8,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349053-9",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-8-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 9,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349063-10",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-9-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 10,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349076-11",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-10-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 11,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349087-12",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-11-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 12,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349098-13",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-12-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 13,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349103-14",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-13-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 14,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349113-15",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-14-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 15,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349120-16",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-1778661624-20260606052229.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 16,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349123-17",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-dsc-6300-kopie-20260606052229.jpg",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 17,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349126-18",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-dsc-6304-kopie-20260606052229.jpg",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 18,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723349129-19",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-dsc-6344-kopie-20260606052229.jpg",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 19,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723376238-1",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-neugeborenenfotografie-karlsruhe17-20260606052256.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 20,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723376247-2",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-neugeborenenfotografie-karlsruhe18-20260606052256.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 21,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723376252-3",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-neugeborenenfotografie-karlsruhe23-20260606052256.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 22,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780723376256-4",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-neugeborenenfotografie-karlsruhe24-20260606052256.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 23,
+      "visible": true
+    },
+    {
+      "id": "newborn-familie-1780724426612-1",
+      "file": "assets/images/galerie/newborn-familie/newborn-familie-neugeborenenfotografie-karlsruhe25-20260606054026.png",
+      "alt": "Newborn mit Familie Galerie",
+      "order": 24,
+      "visible": true
+    }
+  ],
+  "updatedAt": null,
+  "publishedAt": null
+}

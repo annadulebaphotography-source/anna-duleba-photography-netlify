@@ -1,0 +1,34 @@
+{
+  "id": "smashcake",
+  "title": "Smashcake Galerie",
+  "slug": "smashcake-galerie",
+  "category": "Smashcake",
+  "categoryPage": "smashcake.html",
+  "status": "ready-for-publish",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Smashcake Galerie | Anna Duleba Photography",
+    "description": "Helle und liebevolle Smashcake Bilder zum ersten Geburtstag.",
+    "canonical": "https://www.annadulebaphotography.de/pages/smashcake-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/smashcake",
+    "filePrefix": "smashcake",
+    "defaultAltPattern": "Smashcake Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "smashcake-01",
+      "file": "assets/images/galerie/smashcake/smashcake-01.jpg",
+      "alt": "Smashcake Galerie Foto 01",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 1
+    }
+  ],
+  "updatedAt": "2026-06-02T15:12:07.396Z",
+  "publishedAt": null
+}

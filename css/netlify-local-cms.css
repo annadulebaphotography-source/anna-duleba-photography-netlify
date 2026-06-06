@@ -1,0 +1,338 @@
+.adp-local-cms-toolbar {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: calc(100vw - 24px);
+    padding: 10px 12px;
+    border: 1px solid rgba(107, 76, 53, .22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 18px 55px rgba(30, 24, 20, .18);
+    color: #3b2e27;
+    transform: translateX(-50%);
+}
+
+.adp-blog-cms-toolbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 18px;
+}
+
+.adp-local-cms-launcher {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99998;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid #6b4c35;
+    border-radius: 999px;
+    background: #6b4c35;
+    color: #ffffff;
+    box-shadow: 0 12px 34px rgba(30, 24, 20, .2);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.adp-local-cms-toolbar span {
+    padding: 0 8px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.adp-local-cms-toolbar button,
+.adp-local-cms-import {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 8px 12px;
+    border: 1px solid #6b4c35;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #6b4c35;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.adp-local-cms-toolbar [data-cms-save],
+.adp-local-cms-toolbar [data-cms-edit] {
+    background: #6b4c35;
+    color: #ffffff;
+}
+
+.adp-local-cms-editable {
+    outline: 1px dashed rgba(107, 76, 53, .4);
+    outline-offset: 4px;
+    cursor: text;
+}
+
+.adp-local-cms-editable:focus {
+    outline: 2px solid #6b4c35;
+}
+
+.adp-local-cms-editable-image {
+    outline: 2px dashed rgba(107, 76, 53, .55);
+    outline-offset: 4px;
+    cursor: pointer;
+}
+
+.adp-local-image-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(30, 24, 20, .34);
+}
+
+.adp-local-image-panel.is-open {
+    display: flex;
+}
+
+.adp-local-image-panel__dialog {
+    position: relative;
+    width: min(520px, 100%);
+    padding: 24px;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 28px 90px rgba(30, 24, 20, .24);
+    color: #3b2e27;
+}
+
+.adp-local-image-panel__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(107, 76, 53, .22);
+    border-radius: 50%;
+    background: #ffffff;
+    color: #6b4c35;
+    cursor: pointer;
+}
+
+.adp-local-image-panel label {
+    display: block;
+    margin-top: 14px;
+    color: #5a4a40;
+    font-size: 13px;
+}
+
+.adp-local-image-panel__preview {
+    margin-top: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(107, 76, 53, .18);
+    border-radius: 10px;
+    background: #f7f3ef;
+    aspect-ratio: 16 / 9;
+}
+
+.adp-local-image-panel__preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.adp-local-image-panel input {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border: 1px solid rgba(107, 76, 53, .22);
+    border-radius: 10px;
+    color: #3b2e27;
+}
+
+.adp-local-image-panel input[readonly] {
+    background: #f7f3ef;
+}
+
+.adp-local-image-panel__status {
+    min-height: 18px;
+    margin: 10px 0 0;
+    color: #6b4c35;
+    font-size: 12px;
+}
+
+.adp-local-image-panel__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.adp-local-image-panel__actions button {
+    padding: 10px 16px;
+    border: 1px solid #6b4c35;
+    border-radius: 999px;
+    background: #6b4c35;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.adp-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 68px 22px 34px;
+    background: rgba(18, 14, 11, .86);
+}
+
+.adp-lightbox.is-open {
+    display: flex;
+}
+
+.adp-lightbox-open {
+    overflow: hidden;
+}
+
+.adp-lightbox__figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.adp-lightbox__image {
+    display: block;
+    max-width: min(100%, 1200px);
+    max-height: calc(100vh - 130px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+.adp-lightbox__counter {
+    margin-top: 12px;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.adp-lightbox__close,
+.adp-lightbox__nav {
+    position: fixed;
+    z-index: 100002;
+    border: 1px solid rgba(255, 255, 255, .34);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .94);
+    color: #3b2e27;
+    cursor: pointer;
+}
+
+.adp-lightbox__close {
+    top: 18px;
+    right: 18px;
+    width: 48px;
+    height: 48px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.adp-lightbox__nav {
+    top: 50%;
+    width: 54px;
+    height: 54px;
+    font-size: 42px;
+    line-height: 1;
+    transform: translateY(-50%);
+}
+
+.adp-lightbox__nav--prev {
+    left: 18px;
+}
+
+.adp-lightbox__nav--next {
+    right: 18px;
+}
+
+@media (max-width: 720px) {
+    .adp-local-cms-toolbar {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        max-width: none;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 18px;
+    }
+}
+
+.adp-gallery-cms-bar {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.adp-gallery-cms-add,
+.adp-gallery-cms-delete {
+    border: 1px solid #6b4c35;
+    border-radius: 999px;
+    background: #6b4c35;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.adp-gallery-cms-add {
+    padding: 12px 18px;
+}
+
+.adp-gallery-cms-delete {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 7px 10px;
+}
+
+.adp-local-cms-editing .gallery-item {
+    position: relative;
+}
+
+@media (max-width: 760px) {
+    .adp-local-cms-toolbar {
+        right: 10px;
+        left: 10px;
+        bottom: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        transform: none;
+        border-radius: 18px;
+    }
+
+    .adp-lightbox {
+        padding: 64px 12px 28px;
+    }
+
+    .adp-lightbox__image {
+        max-height: calc(100vh - 118px);
+    }
+
+    .adp-lightbox__nav {
+        display: none;
+    }
+}

@@ -1,0 +1,179 @@
+{
+  "id": "newborn-fineart",
+  "title": "Newborn Fine Art Galerie",
+  "slug": "newborn-fineart-galerie",
+  "category": "Newborn",
+  "categoryPage": "newborn.html",
+  "status": "ready-for-publish",
+  "layout": "masonry",
+  "seo": {
+    "title": "Newborn Fine Art Galerie | Anna Duleba Photography",
+    "description": "Zeitlose Fine Art Neugeborenenfotos von Anna Duleba Photography.",
+    "canonical": "https://www.annadulebaphotography.de/pages/newborn-fineart-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/newborn-fineart",
+    "filePrefix": "newborn-fineart",
+    "defaultAltPattern": "Newborn Fine Art Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "newborn-fineart-07",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-07.png",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 07",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "newborn-fineart-05",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-05.png",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 05",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": "newborn-fineart-01",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-01.jpg",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 01",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 3
+    },
+    {
+      "id": "newborn-fineart-03",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-03.png",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 03",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 4
+    },
+    {
+      "id": "newborn-fineart-02",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-02.jpg",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 02",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 5
+    },
+    {
+      "id": "newborn-fineart-04",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-04.png",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 04",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 6
+    },
+    {
+      "id": "newborn-fineart-06",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-06.png",
+      "originalFile": "",
+      "alt": "Newborn Fine Art Galerie Foto 06",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 7
+    },
+    {
+      "id": "newborn-fineart-1780680432029",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-6890-kopie-20260605172711.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 8,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780681454090-1",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-2809-kopie-20260605174414.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 9,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780681454118-2",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-2717-kopie-20260605174414.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 10,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780681454140-3",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-2909-kopie-20260605174414.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 11,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780681454174-4",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-6603-kopie-20260605174414.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 12,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502159-1",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe02-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 13,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502175-2",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe04-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 14,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502194-3",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe07-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 15,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502205-5",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe21-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 17,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502210-6",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe22-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 18,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780722502215-7",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-neugeborenenfotografie-karlsruhe23-20260606050822.png",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 19,
+      "visible": true
+    },
+    {
+      "id": "newborn-fineart-1780723081830-1",
+      "file": "assets/images/galerie/newborn-fineart/newborn-fineart-dsc-5303-kopie-20260606051801.jpg",
+      "alt": "Newborn Fine Art Galerie",
+      "order": 20,
+      "visible": true
+    }
+  ],
+  "updatedAt": "2026-06-05T09:45:07.520Z",
+  "publishedAt": null
+}

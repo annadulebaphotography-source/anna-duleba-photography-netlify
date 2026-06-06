@@ -1,0 +1,53 @@
+{
+  "id": "newborn-geschwister",
+  "title": "Newborn Geschwister Galerie",
+  "slug": "newborn-geschwister-galerie",
+  "category": "Newborn",
+  "categoryPage": "newborn.html",
+  "status": "draft",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Newborn Geschwister Galerie | Anna Duleba Photography",
+    "description": "Sanfte Geschwisterbilder mit Neugeborenen im Studio.",
+    "canonical": "https://www.annadulebaphotography.de/pages/newborn-geschwister-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/newborn-geschwister",
+    "filePrefix": "newborn-geschwister",
+    "defaultAltPattern": "Newborn Geschwister Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "newborn-geschwister-1780725322032-1",
+      "file": "assets/images/galerie/newborn-geschwister/newborn-geschwister-neugeborenenfotografie-karlsruhe26-20260606055522.png",
+      "alt": "Newborn Geschwister Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
+      "id": "newborn-geschwister-1780724487114-1",
+      "file": "assets/images/galerie/newborn-geschwister/newborn-geschwister-dsc-6603-20260606054127.jpg",
+      "alt": "Newborn Geschwister Galerie",
+      "order": 2,
+      "visible": true
+    },
+    {
+      "id": "newborn-geschwister-1780724465915-1",
+      "file": "assets/images/galerie/newborn-geschwister/newborn-geschwister-neugeborenenfotografie-karlsruhe18-20260606054105.png",
+      "alt": "Newborn Geschwister Galerie",
+      "order": 3,
+      "visible": true
+    },
+    {
+      "id": "newborn-geschwister-1780724465927-2",
+      "file": "assets/images/galerie/newborn-geschwister/newborn-geschwister-neugeborenenfotografie-karlsruhe19-20260606054105.png",
+      "alt": "Newborn Geschwister Galerie",
+      "order": 4,
+      "visible": true
+    }
+  ],
+  "updatedAt": null,
+  "publishedAt": null
+}

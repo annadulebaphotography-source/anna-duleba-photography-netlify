@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        Webdesign & Branding Karlsruhe | Anna Duleba Digital Atelier
+    </title>
+
+    <meta
+        name="description"
+        content="Premium Webdesign, Branding, SEO und Personal Branding Fotografie für Selbstständige und moderne Marken in Karlsruhe, Walzbachtal und Umgebung."
+    />
+
+    <meta
+        name="keywords"
+        content="Webdesign Karlsruhe, Branding Karlsruhe, SEO Karlsruhe, Personal Branding, Premium Webdesign, Digital Atelier, Webdesigner Karlsruhe, Branding Studio, Anna Duleba"
+    />
+
+    <link rel="stylesheet" href="../css/style.css" />
+
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <!-- HEADER -->
+
+        <header class="main-header">
+
+            <div class="container">
+
+                <nav class="navbar">
+
+                    <div class="nav-left">
+                        <a href="../index.html">Home</a>
+                        <a href="newborn.html">Newborn</a>
+                        <a href="babybauch.html">Babybauch</a>
+                    </div>
+
+                    <div class="nav-right">
+
+                        <div class="dropdown">
+                            <a href="familie.html">Familie</a>
+
+                            <div class="dropdown-menu">
+                                <a href="kinderfotografie.html">Kinderfotografie</a>
+                                <a href="smashcake.html">Smashcake</a>
+                            </div>
+                        </div>
+
+                        <a href="frauenfotografie.html">Frauenfotografie</a>
+                        <a href="digital-atelier.html">Digital Atelier</a>
+                        <a href="workshop.html">Workshop</a>
+                        <a href="preisliste.html">Preise</a>
+                        <a href="kontakt.html">Kontakt</a>
+
+                    </div>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+
+        <section class="hero-section subpage-hero digital-atelier-hero">
+
+            <img
+                src="../assets/images/digital-atelier-hero.jpg"
+                alt="Digital Atelier Webdesign & Branding Karlsruhe"
+                class="hero-image"
+            />
+
+        </section>
+
+        <!-- CONTENT -->
+
+        <section class="content-section">
+
+            <div class="content-wrapper">
+
+                <div class="content-frame">
+
+                    <div class="content-card">
+
+                        <p class="small-label">
+                            DIGITAL ATELIER · WEBDESIGN · BRANDING · SEO
+                        </p>
+
+                        <h1 class="main-title">
+                            Webdesign &amp; Branding
+                            für moderne Marken
+                            mit Persönlichkeit
+                        </h1>
+
+                        <p class="subtitle">
+                            Premium Websites, Branding und visuelle Markenauftritte
+                            für Selbstständige, Kreative und Unternehmer:innen.
+                        </p>
+
+                        <p class="button-group" style="justify-content:center;margin-bottom:30px;">
+                            <a href="kontakt.html" class="btn-primary">
+                                Projekt anfragen
+                            </a>
+
+                            <a href="https://annaduleba-webdesign.de/" target="_blank" class="btn-secondary">
+                                Website ansehen
+                            </a>
+                        </p>
+
+                        <p class="content-text-full">
+                            Willkommen im <strong>Digital Atelier von Anna Duleba</strong> –
+                            Ihrem Studio für <strong>Webdesign, Branding, SEO und Personal Branding Fotografie in Karlsruhe und Walzbachtal</strong>.
+                            Ich entwickle moderne Markenauftritte für Selbstständige,
+                            kreative Unternehmer:innen und Premium-Dienstleister,
+                            die online sichtbar werden möchten – stilvoll, strategisch und emotional.
+                        </p>
+
+                        <p class="content-text-full">
+                            Eine starke Website ist heute weit mehr als nur eine digitale Visitenkarte.
+                            Sie entscheidet darüber, wie professionell Ihre Marke wahrgenommen wird,
+                            wie viel Vertrauen entsteht und ob Besucher zu echten Anfragen werden.
+                            Deshalb verbinde ich <strong>Webdesign, Markenstrategie, Bildsprache und SEO</strong>
+                            zu einem stimmigen Gesamtauftritt.
+                        </p>
+
+                        <h2 class="section-heading">
+                            Webdesign mit Atmosphäre statt Baukasten-Optik
+                        </h2>
+
+                        <p class="content-text-full">
+                            Viele Websites funktionieren technisch –
+                            aber sie fühlen sich nicht nach der Marke dahinter an.
+                            Farben passen nicht zur Sprache.
+                            Bilder erzählen keine Geschichte.
+                            Der Aufbau wirkt beliebig.
+                        </p>
+
+                        <p class="content-text-full">
+                            Im Digital Atelier entstehen deshalb keine austauschbaren Templates,
+                            sondern <strong>visuelle Markenwelten</strong>:
+                            ruhig, modern, hochwertig und emotional durchdacht.
+                        </p>
+
+                        <ul class="content-list">
+
+                            <li>
+                                <strong>Premium Webdesign</strong> mit modernem Editorial-Look
+                            </li>
+
+                            <li>
+                                <strong>Branding &amp; Markenstrategie</strong> für klare Positionierung
+                            </li>
+
+                            <li>
+                                <strong>SEO optimierte Inhalte</strong> für bessere Sichtbarkeit bei Google
+                            </li>
+
+                            <li>
+                                <strong>Personal Branding Fotografie</strong> für Vertrauen und Wiedererkennung
+                            </li>
+
+                            <li>
+                                <strong>Visuelle Markenführung</strong> mit Farben, Typografie und Bildsprache
+                            </li>
+
+                        </ul>
+
+                        <h2 class="section-heading">
+                            Für wen ist das Digital Atelier gedacht?
+                        </h2>
+
+                        <p class="content-text-full">
+                            Ich arbeite vor allem mit:
+                        </p>
+
+                        <ul class="content-list">
+
+                            <li>
+                                Fotograf:innen
+                            </li>
+
+                            <li>
+                                Coaches &amp; Kreativen
+                            </li>
+
+                            <li>
+                                Beauty- &amp; Lifestyle-Brands
+                            </li>
+
+                            <li>
+                                Selbstständigen Frauen
+                            </li>
+
+                            <li>
+                                modernen Premium-Dienstleistern
+                            </li>
+
+                            <li>
+                                kleinen Unternehmen mit Anspruch an Ästhetik und Qualität
+                            </li>
+
+                        </ul>
+
+                        <p class="content-text-full">
+                            Besonders wichtig ist mir,
+                            dass eine Marke nicht nur „schön aussieht“,
+                            sondern sich konsistent anfühlt –
+                            auf der Website, in Social Media,
+                            in Bildern und in der gesamten Kommunikation.
+                        </p>
+
+                        <h2 class="section-heading">
+                            Branding, SEO &amp; Sichtbarkeit aus einer Hand
+                        </h2>
+
+                        <p class="content-text-full">
+                            Durch meine Erfahrung als Fotografin denke ich Marken visuell.
+                            Gleichzeitig entwickle ich Websites strategisch mit Blick auf
+                            <strong>SEO, Benutzerführung und Conversion</strong>.
+                        </p>
+
+                        <p class="content-text-full">
+                            Das bedeutet:
+                            Ihre Website soll nicht nur beeindrucken –
+                            sie soll gefunden werden.
+                        </p>
+
+                        <p class="content-text-full">
+                            Deshalb optimiere ich Seiten gezielt für Suchbegriffe wie:
+                            <strong>Webdesign Karlsruhe</strong>,
+                            <strong>Branding Karlsruhe</strong>,
+                            <strong>SEO für Selbstständige</strong>,
+                            <strong>Personal Branding Fotografie</strong>
+                            oder <strong>Premium Webdesign Deutschland</strong>.
+                        </p>
+
+                        <div class="jimdo-quickbox">
+
+                            <p>
+                                <strong>Digital Atelier:</strong>
+                                Branding, Fotografie, SEO und Webdesign
+                                als eine gemeinsame visuelle Sprache.
+                            </p>
+
+                        </div>
+
+                        <h2 class="section-heading">
+                            Warum Kunden mit mir arbeiten
+                        </h2>
+
+                        <p class="content-text-full">
+                            Meine Kund:innen schätzen besonders die Verbindung aus:
+                        </p>
+
+                        <ul class="content-list">
+
+                            <li>
+                                strategischem Denken
+                            </li>
+
+                            <li>
+                                visueller Ästhetik
+                            </li>
+
+                            <li>
+                                emotionalem Storytelling
+                            </li>
+
+                            <li>
+                                technischer Umsetzung
+                            </li>
+
+                            <li>
+                                SEO Verständnis
+                            </li>
+
+                            <li>
+                                und einer sehr persönlichen Zusammenarbeit
+                            </li>
+
+                        </ul>
+
+                        <p class="content-text-full">
+                            Gemeinsam entwickeln wir einen Markenauftritt,
+                            der hochwertig aussieht,
+                            Vertrauen schafft
+                            und langfristig sichtbar bleibt.
+                        </p>
+
+                        <div style="border-top:1px solid #e4d4c3;margin:35px 0 25px;"></div>
+
+                        <h2 class="section-heading">
+                            Projekt starten
+                        </h2>
+
+                        <p class="content-text-full">
+                            Sie möchten eine Website,
+                            die professionell wirkt,
+                            emotional berührt
+                            und Ihre Marke wirklich repräsentiert?
+                        </p>
+
+                        <p class="content-text-full">
+                            Dann freue ich mich auf Ihre Anfrage.
+                        </p>
+
+                        <p class="button-group" style="justify-content:center;margin-top:30px;">
+
+                            <a href="kontakt.html" class="btn-primary">
+                                Projekt anfragen
+                            </a>
+
+                            <a href="https://annaduleba-webdesign.de/" target="_blank" class="btn-secondary">
+                                Zum Digital Atelier
+                            </a>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+[build]
+  command = "node tools/build-netlify-site.cjs"
+  publish = "netlify-site"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

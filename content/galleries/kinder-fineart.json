@@ -1,0 +1,24 @@
+{
+  "id": "kinder-fineart",
+  "title": "Kinder Fine Art Galerie",
+  "slug": "kinder-fineart-galerie",
+  "category": "Kinderfotografie",
+  "categoryPage": "kinderfotografie.html",
+  "status": "draft",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Kinder Fine Art Galerie | Anna Duleba Photography",
+    "description": "Kuenstlerische Kinderportraits im Fine-Art-Stil.",
+    "canonical": "https://www.annadulebaphotography.de/pages/kinder-fineart-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/kinder-fineart",
+    "filePrefix": "kinder-fineart",
+    "defaultAltPattern": "Kinder Fine Art Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [],
+  "updatedAt": null,
+  "publishedAt": null
+}

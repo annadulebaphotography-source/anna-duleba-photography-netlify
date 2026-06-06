@@ -1,0 +1,10 @@
+assets/images/preisliste.html
+assets/images/imgres.htm
+assets/images/preisliste_files/
+backups/
+_codex-backup*/
+server/
+admin/
+netlify-site/
+content/client-galleries.json
+content/client-orders.json

@@ -1,0 +1,24 @@
+{
+  "id": "studio",
+  "title": "Studio Galerie",
+  "slug": "studio",
+  "category": "Studio",
+  "categoryPage": "studio.html",
+  "status": "published",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Studio Galerie | Anna Duleba Photography",
+    "description": "Einblicke in das Fotostudio von Anna Duleba Photography in Walzbachtal.",
+    "canonical": "https://www.annadulebaphotography.de/pages/studio.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/studio",
+    "filePrefix": "studio",
+    "defaultAltPattern": "Studio Anna Duleba Photography Foto {number}",
+    "placeholderCount": 9
+  },
+  "images": [],
+  "updatedAt": null,
+  "publishedAt": null
+}

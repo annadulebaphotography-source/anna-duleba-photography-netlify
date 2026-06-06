@@ -1,0 +1,72 @@
+[
+  {
+    "id": "newborn-fineart",
+    "title": "Newborn Fine Art Galerie",
+    "category": "Newborn",
+    "dataFile": "content/galleries/newborn-fineart.json",
+    "publicPage": "pages/newborn-fineart-galerie.html"
+  },
+  {
+    "id": "newborn-familie",
+    "title": "Newborn mit Familie Galerie",
+    "category": "Newborn",
+    "dataFile": "content/galleries/newborn-familie.json",
+    "publicPage": "pages/newborn-familie-galerie.html"
+  },
+  {
+    "id": "newborn-geschwister",
+    "title": "Newborn Geschwister Galerie",
+    "category": "Newborn",
+    "dataFile": "content/galleries/newborn-geschwister.json",
+    "publicPage": "pages/newborn-geschwister-galerie.html"
+  },
+  {
+    "id": "babybauch",
+    "title": "Babybauch Galerie",
+    "category": "Babybauch",
+    "dataFile": "content/galleries/babybauch.json",
+    "publicPage": "pages/babybauch-galerie.html"
+  },
+  {
+    "id": "studio",
+    "title": "Studio Galerie",
+    "category": "Studio",
+    "dataFile": "content/galleries/studio.json",
+    "publicPage": "pages/studio.html"
+  },
+  {
+    "id": "familien",
+    "title": "Familien Galerie",
+    "category": "Familie",
+    "dataFile": "content/galleries/familien.json",
+    "publicPage": "pages/familien-galerie.html"
+  },
+  {
+    "id": "kinder",
+    "title": "Kinder Galerie",
+    "category": "Kinderfotografie",
+    "dataFile": "content/galleries/kinder.json",
+    "publicPage": "pages/kinder-galerie.html"
+  },
+  {
+    "id": "kinder-fineart",
+    "title": "Kinder Fine Art Galerie",
+    "category": "Kinderfotografie",
+    "dataFile": "content/galleries/kinder-fineart.json",
+    "publicPage": "pages/kinder-fineart-galerie.html"
+  },
+  {
+    "id": "smashcake",
+    "title": "Smashcake Galerie",
+    "category": "Smashcake",
+    "dataFile": "content/galleries/smashcake.json",
+    "publicPage": "pages/smashcake-galerie.html"
+  },
+  {
+    "id": "frauen",
+    "title": "Frauenfotografie Galerie",
+    "category": "Frauenfotografie",
+    "dataFile": "content/galleries/frauen.json",
+    "publicPage": "pages/frauen-galerie.html"
+  }
+]

@@ -1,0 +1,332 @@
+{
+  "currency": "EUR",
+  "source": "pages/preisliste.html",
+  "updatedAt": "2026-06-03T00:00:00.000Z",
+  "sessionTypes": [
+    {
+      "id": "newborn",
+      "name": "Neugeborenenfotografie",
+      "publicPage": "pages/newborn.html",
+      "pricePageAnchor": "pages/preisliste.html#newborn-preise",
+      "packages": [
+        {
+          "id": "newborn-mini",
+          "name": "Paket Mini",
+          "price": 360,
+          "includedImages": 7,
+          "extraImagePrice": 30,
+          "durationMin": 180,
+          "description": "Feinsinnige, kompakte Erinnerungen - ideal fuer den Start.",
+          "features": [
+            "7 professionell bearbeitete Bilder (Download & USB)",
+            "3 Baby-Setups in unterschiedlichen Stilen",
+            "1 Familienmotiv inklusive",
+            "Auswahl bequem ueber eine Online-Galerie",
+            "Inklusive Familienfruehstueck"
+          ]
+        },
+        {
+          "id": "newborn-standard",
+          "name": "Paket Standard",
+          "price": 490,
+          "includedImages": 17,
+          "extraImagePrice": 25,
+          "durationMin": 180,
+          "description": "Die beliebteste Wahl - ausgewogen, vielseitig, liebevoll.",
+          "features": [
+            "17 professionell bearbeitete Bilder (Download & USB)",
+            "5 Baby-Setups mit variierenden Stoffen & Farben",
+            "1 Familienmotiv plus Print im Format 13x18 cm",
+            "Online-Galerie zur entspannten Auswahl",
+            "Inklusive Familienfruehstueck"
+          ]
+        },
+        {
+          "id": "newborn-premium",
+          "name": "Paket Premium",
+          "price": 690,
+          "includedImages": 27,
+          "extraImagePrice": 20,
+          "durationMin": 180,
+          "description": "Das vollendete Erlebnis - kunstvoll, detailreich, aussergewoehnlich.",
+          "features": [
+            "27 hochwertig bearbeitete Bilder (Download & USB)",
+            "7+ kreative Setups mit Koerbchen, Stoffen & Accessoires",
+            "Familienbilder in mehreren Kombinationen",
+            "Detailaufnahmen von Haenden, Fuesschen & Gesicht",
+            "Edle Prints im Format 13x18 cm",
+            "Inklusive Fruehstueck & kleiner Ueberraschung"
+          ]
+        }
+      ],
+      "addOns": [
+        {
+          "id": "combo-photobook",
+          "name": "Classic-Fotobuch bei Schwangerschafts- & Neugeborenenshooting",
+          "price": 0,
+          "type": "gift"
+        }
+      ]
+    },
+    {
+      "id": "babybauch",
+      "name": "Babybauch Shooting",
+      "publicPage": "pages/babybauch.html",
+      "pricePageAnchor": "pages/preisliste.html#babybauch-preise",
+      "packages": [
+        {
+          "id": "babybauch-dein-moment",
+          "name": "Dein Moment",
+          "price": 249,
+          "includedImages": 7,
+          "extraImagePrice": 25,
+          "durationMin": 45,
+          "description": "Fuer alle, die sich ein kurzes, aber hochwertiges Babybauch-Shooting wuenschen.",
+          "features": [
+            "7 fein retuschierte Fine-Art-Fotos",
+            "Dauer: ca. 45 Minuten",
+            "Ort: Studio oder einfacher Outdoor-Spot",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "babybauch-unsere-geschichte",
+          "name": "Unsere Geschichte",
+          "price": 349,
+          "includedImages": 15,
+          "extraImagePrice": 25,
+          "durationMin": 75,
+          "description": "Der perfekte Mix aus Vielfalt, Ruhe und echten Familienmomenten.",
+          "features": [
+            "15 fein retuschierte Fine-Art-Fotos",
+            "Dauer: ca. 60-75 Minuten",
+            "Ort: Studio oder individueller Outdoor-Spot",
+            "Partner & Geschwister inklusive",
+            "Mehrere Sets / Outfits moeglich"
+          ]
+        },
+        {
+          "id": "babybauch-unvergessliche-momente",
+          "name": "Unvergessliche Momente",
+          "price": 549,
+          "includedImages": 25,
+          "extraImagePrice": 25,
+          "durationMin": 120,
+          "description": "Das Premium-Erlebnis: maximale Vielfalt, mehr Zeit, mehr Details.",
+          "features": [
+            "25 fein retuschierte Fine-Art-Fotos",
+            "Dauer: bis zu 2 Stunden",
+            "Studio & Outdoor kombinierbar",
+            "Partner & Geschwister inklusive",
+            "Priorisierte Bearbeitung"
+          ]
+        }
+      ],
+      "addOns": [
+        {
+          "id": "babybauch-complete-gallery",
+          "name": "Komplette Galerie",
+          "priceFrom": 190
+        },
+        {
+          "id": "babybauch-makeup",
+          "name": "Professionelles Make-up",
+          "priceOnRequest": true
+        }
+      ]
+    },
+    {
+      "id": "familie",
+      "name": "Familienfotografie",
+      "publicPage": "pages/familie.html",
+      "pricePageAnchor": "pages/preisliste.html#familien-preise",
+      "packages": [
+        {
+          "id": "familie-mini",
+          "name": "Paket Mini",
+          "price": 229,
+          "includedImages": 5,
+          "extraImagePrice": 25,
+          "durationMin": 30,
+          "description": "Fuer Familien, die sich liebevolle Erinnerungen in kompakter Form wuenschen.",
+          "features": [
+            "5 fein retuschierte Fine-Art-Fotos",
+            "Dauer: ca. 30 Minuten",
+            "Outdoor oder Studio",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "familie-standard",
+          "name": "Paket Standard",
+          "price": 349,
+          "includedImages": 15,
+          "extraImagePrice": 25,
+          "durationMin": 60,
+          "description": "Der perfekte Mix aus Vielfalt, Zeit und natuerlichen Familienmomenten.",
+          "features": [
+            "15 fein retuschierte Fine-Art-Fotos",
+            "Dauer: ca. 60 Minuten",
+            "Outdoor oder Studio",
+            "Geschwister & Eltern inklusive",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "familie-premium",
+          "name": "Paket Premium",
+          "price": 459,
+          "includedImages": 25,
+          "extraImagePrice": 25,
+          "durationMin": 90,
+          "description": "Mehr Zeit, mehr Vielfalt und ein Familienerlebnis ohne Kompromisse.",
+          "features": [
+            "25 fein retuschierte Fine-Art-Fotos",
+            "Dauer: bis zu 90 Minuten",
+            "Mehrere Sets moeglich",
+            "Outdoor oder Studio",
+            "Priorisierte Bearbeitung"
+          ]
+        }
+      ],
+      "addOns": [
+        {
+          "id": "familie-complete-gallery",
+          "name": "Komplette Galerie",
+          "priceFrom": 190
+        }
+      ]
+    },
+    {
+      "id": "lifestyle",
+      "name": "Lifestyle Shooting",
+      "publicPage": "pages/familie.html",
+      "pricePageAnchor": "pages/preisliste.html#lifestyle-preise",
+      "packages": [
+        {
+          "id": "lifestyle-kleine-geschichte",
+          "name": "Kleine Geschichte",
+          "price": 420,
+          "includedImages": 25,
+          "extraImagePrice": null,
+          "durationMin": 60,
+          "description": "Fuer alle, die sich eine kurze, emotionale Homestory wuenschen.",
+          "features": [
+            "ca. 45-60 Minuten bei Euch zu Hause",
+            "25 professionell bearbeitete Bilder",
+            "Familie, Neugeborenes oder Babybauch",
+            "Online-Galerie zur Auswahl",
+            "Fine-Art Bildbearbeitung"
+          ]
+        },
+        {
+          "id": "lifestyle-familiengeschichte",
+          "name": "Familiengeschichte",
+          "price": 650,
+          "includedImages": 45,
+          "extraImagePrice": null,
+          "durationMin": 90,
+          "description": "Mehr Zeit, mehr Situationen und mehr Raum fuer echte Erinnerungen.",
+          "features": [
+            "ca. 75-90 Minuten bei Euch zu Hause",
+            "45 professionell bearbeitete Bilder",
+            "Mehrere Raeume und Situationen",
+            "Familie, Neugeborenes oder Babybauch",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "lifestyle-zeitkapsel",
+          "name": "Zeitkapsel",
+          "price": 980,
+          "includedImages": 65,
+          "extraImagePrice": null,
+          "durationMin": 120,
+          "description": "Das Premium-Erlebnis fuer alle, die ihre Familiengeschichte bewahren moechten.",
+          "features": [
+            "bis zu 2 Stunden bei Euch zu Hause",
+            "65 professionell bearbeitete Bilder",
+            "Storytelling-Ansatz mit vielen Details",
+            "Familie, Neugeborenes oder Babybauch",
+            "Priorisierte Bearbeitung"
+          ]
+        }
+      ],
+      "addOns": [
+        {
+          "id": "lifestyle-complete-gallery",
+          "name": "Komplette Galerie",
+          "priceFrom": 190
+        },
+        {
+          "id": "lifestyle-travel-extra-km",
+          "name": "Jeder weitere Kilometer",
+          "price": 0.6
+        }
+      ]
+    },
+    {
+      "id": "frauen",
+      "name": "Frauenfotografie",
+      "publicPage": "pages/frauenfotografie.html",
+      "pricePageAnchor": "pages/preisliste.html#frauen-preise",
+      "packages": [
+        {
+          "id": "frauen-classic",
+          "name": "Classic",
+          "price": 399,
+          "includedImages": 10,
+          "extraImagePrice": 25,
+          "durationMin": 60,
+          "description": "Der perfekte Einstieg fuer ein elegantes und zeitloses Frauenshooting.",
+          "features": [
+            "10 professionell bearbeitete Bilder",
+            "Styling- & Outfitberatung",
+            "Sekt, Kaffee oder Tee zum Ankommen",
+            "Studio oder Outdoor",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "frauen-premium",
+          "name": "Premium",
+          "price": 499,
+          "includedImages": 20,
+          "extraImagePrice": 25,
+          "durationMin": 90,
+          "description": "Mehr Vielfalt, mehr Motive und mehr Raum fuer kreative Ideen.",
+          "features": [
+            "20 professionell bearbeitete Bilder",
+            "Mehrere Outfits moeglich",
+            "Styling- & Outfitberatung",
+            "Studio oder Outdoor",
+            "Online-Galerie zur Auswahl"
+          ]
+        },
+        {
+          "id": "frauen-deluxe",
+          "name": "Deluxe",
+          "price": 599,
+          "includedImages": 30,
+          "extraImagePrice": 15,
+          "durationMin": 120,
+          "description": "Das besondere Erlebnis mit exklusiven Erinnerungen.",
+          "features": [
+            "30 professionell bearbeitete Bilder",
+            "Hochwertiges Fotoalbum inklusive",
+            "Mehrere Outfits moeglich",
+            "Studio oder Outdoor",
+            "Priorisierte Bearbeitung"
+          ]
+        }
+      ],
+      "addOns": [
+        {
+          "id": "frauen-makeup",
+          "name": "Professionelles Make-up",
+          "priceOnRequest": true
+        }
+      ]
+    }
+  ]
+}

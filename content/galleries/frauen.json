@@ -1,0 +1,61 @@
+{
+  "id": "frauen",
+  "title": "Frauenfotografie Galerie",
+  "slug": "frauen-galerie",
+  "category": "Frauenfotografie",
+  "categoryPage": "frauenfotografie.html",
+  "status": "ready-for-publish",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Frauenfotografie Galerie | Anna Duleba Photography",
+    "description": "Feminine Portraits mit ruhiger, zeitloser Fine-Art-Aesthetik.",
+    "canonical": "https://www.annadulebaphotography.de/pages/frauen-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/frauen",
+    "filePrefix": "frauen",
+    "defaultAltPattern": "Frauenfotografie Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "frauen-01",
+      "file": "assets/images/galerie/frauen/frauen-01.jpg",
+      "alt": "Frauenfotografie Galerie Foto 01",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "frauen-02",
+      "file": "assets/images/galerie/frauen/frauen-02.jpg",
+      "alt": "Frauenfotografie Galerie Foto 02",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": "frauen-03",
+      "file": "assets/images/galerie/frauen/frauen-03.jpg",
+      "alt": "Frauenfotografie Galerie Foto 03",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 3
+    },
+    {
+      "id": "frauen-04",
+      "file": "assets/images/galerie/frauen/frauen-04.jpg",
+      "alt": "Frauenfotografie Galerie Foto 04",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 4
+    }
+  ],
+  "updatedAt": "2026-06-02T15:10:15.200Z",
+  "publishedAt": null
+}

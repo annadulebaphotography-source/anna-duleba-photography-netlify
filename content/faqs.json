@@ -1,0 +1,45 @@
+{
+  "newborn": [
+    {
+      "id": "wann-sollte-ich-buchen",
+      "question": "Wann sollte ich buchen?",
+      "answer": "Am besten bereits in der Schwangerschaft. Nach der Geburt stimmen wir den finalen Termin in den ersten 5-14 Lebenstagen flexibel ab.",
+      "order": 1
+    },
+    {
+      "id": "was-sollen-wir-mitbringen",
+      "question": "Was sollen wir mitbringen?",
+      "answer": "Im Studio ist alles da. Ihr braucht nur Windeln, Milch oder Fläschchen und auf Wunsch ein persönliches Erinnerungsstück.",
+      "order": 2
+    },
+    {
+      "id": "was-kostet-ein-neugeborenenshooting",
+      "question": "Was kostet ein Neugeborenenshooting in Karlsruhe?",
+      "answer": "Die Preise hängen vom Paket und der gewünschten Bildanzahl ab. Eine klare Übersicht findet ihr in meiner Preisliste.",
+      "order": 3
+    },
+    {
+      "id": "wie-lange-dauert-ein-newborn-shooting",
+      "question": "Wie lange dauert ein Newborn Shooting?",
+      "answer": "In der Regel dauert ein Neugeborenenshooting 2-3 Stunden inklusive Still-, Kuschel- und Wickelpausen.",
+      "order": 4
+    }
+  ],
+  "babybauch": [
+    {
+      "id": "wann-ist-der-beste-zeitpunkt",
+      "question": "Wann ist der beste Zeitpunkt für ein Babybauch Shooting?",
+      "answer": "Ideal ist meistens die Zeit zwischen der 28. und 34. Schwangerschaftswoche, wenn der Bauch schön rund ist und ihr euch noch wohl fühlt.",
+      "order": 1
+    },
+    {
+      "id": "was-soll-ich-anziehen",
+      "question": "Was soll ich zum Babybauch Shooting anziehen?",
+      "answer": "Ihr bekommt vor dem Shooting eine ruhige Beratung zu Farben, Kleidern und Stil. Einige Outfits sind im Studio vorhanden.",
+      "order": 2
+    }
+  ],
+  "familie": [],
+  "kinderfotografie": [],
+  "frauenfotografie": []
+}

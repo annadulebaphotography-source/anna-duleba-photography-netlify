@@ -1,0 +1,43 @@
+{
+  "id": "kinder",
+  "title": "Kinder Galerie",
+  "slug": "kinder-galerie",
+  "category": "Kinderfotografie",
+  "categoryPage": "kinderfotografie.html",
+  "status": "ready-for-publish",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Kinder Galerie | Anna Duleba Photography",
+    "description": "Liebevolle Kinderportraits mit natuerlicher Ausstrahlung.",
+    "canonical": "https://www.annadulebaphotography.de/pages/kinder-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/kinder",
+    "filePrefix": "kinder",
+    "defaultAltPattern": "Kinder Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "kinder-01",
+      "file": "assets/images/galerie/kinder/kinder-01.jpg",
+      "alt": "Kinder Galerie Foto 01",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "kinder-02",
+      "file": "assets/images/galerie/kinder/kinder-02.jpg",
+      "alt": "Kinder Galerie Foto 02",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 2
+    }
+  ],
+  "updatedAt": "2026-06-02T15:11:36.658Z",
+  "publishedAt": null
+}

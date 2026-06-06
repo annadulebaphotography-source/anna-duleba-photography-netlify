@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newborn Fine Art Galerie | Anna Duleba Photography</title>
+    <meta name="description" content="Zeitlose Fine Art Neugeborenenfotos von Anna Duleba Photography." />
+    <link rel="canonical" href="https://www.annadulebaphotography.de/pages/newborn-fineart-galerie.html" />
+    <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/admin-edit.css?v=phase6f" />
+
+    <style>
+        .gallery-breadcrumb {
+            margin: 0 0 24px;
+            font-size: 12px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: #8b7762;
+        }
+
+        .gallery-breadcrumb a,
+        .gallery-back-link {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(139, 119, 98, .28);
+        }
+
+        .gallery-grid {
+            margin-top: 34px;
+        }
+
+        .gallery-grid,
+        .gallery-grid * {
+            box-sizing: border-box;
+        }
+
+        .gallery-item,
+        .gallery-grid a {
+            display: block;
+            overflow: visible;
+            border-radius: 0;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0;
+        }
+
+        .gallery-placeholder {
+            min-height: 260px;
+            background: #f5f1ea;
+            border: 1px solid rgba(0, 0, 0, .06);
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b7762;
+            font-size: 12px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .gallery-natural,
+        .gallery-classic {
+            display: block;
+            column-count: 3;
+            column-gap: 18px;
+            align-items: start;
+        }
+
+        .gallery-masonry,
+        .gallery-mosaic {
+            display: block;
+            column-count: 3;
+            column-gap: 18px;
+        }
+
+        .gallery-masonry .gallery-item,
+        .gallery-mosaic .gallery-item {
+            display: block;
+            width: 100%;
+            break-inside: avoid;
+            margin: 0 0 18px;
+            background: transparent;
+        }
+
+        .gallery-masonry .gallery-item img,
+        .gallery-mosaic .gallery-item img,
+        .gallery-natural .gallery-item img,
+        .gallery-classic .gallery-item img {
+            width: 100%;
+            height: auto;
+            object-fit: initial;
+        }
+
+        .gallery-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 38px;
+        }
+
+        .gallery-cta {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 999px;
+            background: #6b4c35;
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-natural,
+            .gallery-classic {
+                column-count: 2;
+                column-gap: 14px;
+            }
+
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 2;
+                column-gap: 14px;
+            }
+
+            .gallery-masonry .gallery-item,
+            .gallery-mosaic .gallery-item {
+                margin-bottom: 14px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .gallery-natural,
+            .gallery-classic {
+                column-count: 1;
+            }
+
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 1;
+            }
+        }
+    
+        .content-section {
+            background: #ffffff;
+        }
+
+        .content-frame,
+        .content-card {
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .gallery-natural,
+        .gallery-classic,
+        .gallery-masonry,
+        .gallery-mosaic {
+            display: block;
+            column-count: 3;
+            column-gap: 18px;
+        }
+
+        .gallery-natural .gallery-item,
+        .gallery-classic .gallery-item,
+        .gallery-masonry .gallery-item,
+        .gallery-mosaic .gallery-item {
+            display: block;
+            overflow: visible;
+            border-radius: 0;
+            width: 100%;
+            break-inside: avoid;
+            margin: 0 0 18px;
+            background: transparent;
+        }
+
+        .gallery-grid img,
+        .gallery-natural .gallery-item img,
+        .gallery-classic .gallery-item img,
+        .gallery-masonry .gallery-item img,
+        .gallery-mosaic .gallery-item img {
+            width: 100%;
+            height: auto;
+            object-fit: initial;
+            border-radius: 0;
+        }
+
+        .gallery-placeholder {
+            border-radius: 0;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-natural,
+            .gallery-classic,
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .gallery-natural,
+            .gallery-classic,
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 1;
+            }
+        }
+    </style>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      .admin-preview-bar {
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        z-index: 9999;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        max-width: calc(100% - 28px);
+        padding: 12px 14px 12px 18px;
+        border: 1px solid rgba(107, 76, 53, .28);
+        border-radius: 999px;
+        background: rgba(255, 250, 244, .94);
+        box-shadow: 0 14px 38px rgba(0,0,0,.13);
+        color: #3a3128;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 14px;
+        backdrop-filter: blur(10px);
+      }
+      .admin-preview-bar span {
+        white-space: nowrap;
+        color: #6f6a63;
+      }
+      .admin-preview-bar a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: #6b4c35;
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      @media (max-width: 640px) {
+        .admin-preview-bar {
+          right: 12px;
+          left: 12px;
+          bottom: 12px;
+          transform: none;
+          flex-direction: column;
+          border-radius: 0;
+          text-align: center;
+        }
+        .admin-preview-bar span {
+          white-space: normal;
+        }
+        .admin-preview-bar a {
+          width: 100%;
+        }
+      }
+    
+        .content-section {
+            background: #ffffff;
+        }
+
+        .content-frame,
+        .content-card {
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .gallery-natural,
+        .gallery-classic,
+        .gallery-masonry,
+        .gallery-mosaic {
+            display: block;
+            column-count: 3;
+            column-gap: 18px;
+        }
+
+        .gallery-natural .gallery-item,
+        .gallery-classic .gallery-item,
+        .gallery-masonry .gallery-item,
+        .gallery-mosaic .gallery-item {
+            display: block;
+            overflow: visible;
+            border-radius: 0;
+            width: 100%;
+            break-inside: avoid;
+            margin: 0 0 18px;
+            background: transparent;
+        }
+
+        .gallery-grid img,
+        .gallery-natural .gallery-item img,
+        .gallery-classic .gallery-item img,
+        .gallery-masonry .gallery-item img,
+        .gallery-mosaic .gallery-item img {
+            width: 100%;
+            height: auto;
+            object-fit: initial;
+            border-radius: 0;
+        }
+
+        .gallery-placeholder {
+            border-radius: 0;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-natural,
+            .gallery-classic,
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .gallery-natural,
+            .gallery-classic,
+            .gallery-masonry,
+            .gallery-mosaic {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="main-header">
+            <div class="container">
+                <nav class="navbar">
+    <div class="nav-left">
+        <a href="../index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="newborn.html">Newborn</a>
+        <a href="babybauch.html">Babybauch</a>
+        <a href="studio.html">Studio</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="dropdown">
+            <a href="familie.html">Familie</a>
+
+            <div class="dropdown-menu">
+                <a href="kinderfotografie.html">Kinderfotografie</a>
+                <a href="smashcake.html">Smashcake</a>
+            </div>
+        </div>
+
+        <a href="frauenfotografie.html">Frauenfotografie</a>
+        <a href="saisonale-angebote.html">Saisonale Angebote</a>
+        <a href="digital-atelier.html">Digital Atelier</a>
+        <a href="workshop.html">Workshop</a>
+        <a href="preisliste.html">Preise</a>
+        <a href="kontakt.html">Kontakt</a>
+    </div>
+</nav>
+
+                <button class="mobile-menu-toggle" type="button" aria-label="Men&uuml; &ouml;ffnen" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <section class="content-section">
+                <div class="content-wrapper">
+                    <div class="content-frame">
+                        <div class="content-card">
+                            <nav class="gallery-breadcrumb" aria-label="Breadcrumb">
+                                <a href="../index.html">Start</a> &gt;
+                                <a href="newborn.html">Newborn</a> &gt;
+                                <span>Fine Art Galerie</span>
+                            </nav>
+
+                            <p class="section-label">NEWBORN FINE ART</p>
+                            <h1 class="main-title">Newborn Fine Art Galerie</h1>
+                            <p class="subtitle">Zeitlose Fine Art Neugeborenenfotos von Anna Duleba Photography.</p>
+
+                            <!--
+                                Tryby uk&lstrok;adu do wyboru na kontenerze:
+                                gallery-mosaic   = mozaika podobna do Jimdo, z klasami wide / large / full
+                                gallery-masonry  = naturalne kolumny portfolio, bez r&oacute;wnych rz&eogon;d&oacute;w
+                                gallery-natural  = spokojny grid 3 / 2 / 1, naturalne proporcje
+
+                                Klasy dla pojedynczego zdj&eogon;cia w trybie gallery-mosaic:
+                                gallery-item      = zwyk&lstrok;y kafel
+                                gallery-item wide = szerszy kafel
+                                gallery-item large = wi&eogon;kszy kafel
+                                gallery-item full = kafel na ca&lstrok;&aogon; szeroko&sacute;&cacute;
+                                Galerie jest skalowalna: aby doda&cacute; kolejne zdj&eogon;cie,
+                                skopiuj jeden blok FOTO i podmie&nacute; placeholder na klikalne zdj&eogon;cie.
+                                Konwencja plik&oacute;w: assets/images/galerie/newborn-fineart/newborn-fineart-13.jpg itd.
+                            -->
+                            <div class="gallery-grid gallery-masonry">
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-07.png">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-07.png" alt="Newborn Fine Art Galerie Foto 07" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-05.png">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-05.png" alt="Newborn Fine Art Galerie Foto 05" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-01.jpg">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-01.jpg" alt="Newborn Fine Art Galerie Foto 01" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-03.png">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-03.png" alt="Newborn Fine Art Galerie Foto 03" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-02.jpg">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-02.jpg" alt="Newborn Fine Art Galerie Foto 02" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-04.png">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-04.png" alt="Newborn Fine Art Galerie Foto 04" loading="lazy">
+                    </a>
+
+                    <a class="gallery-item" href="../assets/images/galerie/newborn-fineart/newborn-fineart-06.png">
+                        <img src="../assets/images/galerie/newborn-fineart/newborn-fineart-06.png" alt="Newborn Fine Art Galerie Foto 06" loading="lazy">
+                    </a>
+                            </div>
+
+                            <div class="gallery-actions">
+                                <a class="gallery-back-link" href="newborn.html">Zur&uuml;ck zu Newborn</a>
+                                <a class="gallery-cta" href="kontakt.html">Termin anfragen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+    <div class="site-footer-inner">
+        <div class="site-footer-brand">
+            <p class="site-footer-name">Anna Duleba Photography</p>
+            <p>Fotografie f&uuml;r Neugeborene, Babybauch, Familie und Fine Art in Walzbachtal &amp; Karlsruhe.</p>
+            <p>Friedhofstr. 10, 75045 Walzbachtal-J&ouml;hlingen</p>
+        </div>
+
+        <nav class="site-footer-links" aria-label="Footer Navigation">
+            <a href="kontakt.html">Kontakt</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="https://www.instagram.com/annaduleba_photography/" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+    </div>
+</footer>
+    </div>
+
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/gallery-renderer.js?v=phase2c"></script>
+    <script src="../js/admin-edit-mode.js?v=phase6f"></script>
+<div class="admin-preview-bar">
+    <span>Preview galerii: Newborn Fine Art Galerie</span>
+    <a href="/admin/gallery-edit.html?id=newborn-fineart">Wróć do edycji zdjęć</a>
+  </div>
+</body>
+</html>

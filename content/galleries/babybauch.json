@@ -1,0 +1,105 @@
+{
+  "id": "babybauch",
+  "title": "Babybauch Galerie",
+  "slug": "babybauch-galerie",
+  "category": "Babybauch",
+  "categoryPage": "babybauch.html",
+  "status": "ready-for-publish",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Babybauch Galerie | Anna Duleba Photography",
+    "description": "Zeitlose Babybauchfotos mit ruhiger, femininer Premium-Aesthetik.",
+    "canonical": "https://www.annadulebaphotography.de/pages/babybauch-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/babybauch",
+    "filePrefix": "babybauch",
+    "defaultAltPattern": "Babybauch Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [
+    {
+      "id": "babybauch-02",
+      "file": "assets/images/galerie/babybauch/babybauch-02.png",
+      "originalFile": "",
+      "alt": "Babybauch Galerie Foto 02",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "babybauch-03",
+      "file": "assets/images/galerie/babybauch/babybauch-03.jpg",
+      "originalFile": "",
+      "alt": "Babybauch Galerie Foto 03",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": "babybauch-04",
+      "file": "assets/images/galerie/babybauch/babybauch-04.jpg",
+      "originalFile": "",
+      "alt": "Babybauch Galerie Foto 04",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 3
+    },
+    {
+      "id": "babybauch-05",
+      "file": "assets/images/galerie/babybauch/babybauch-05.webp",
+      "originalFile": "assets/images/galerie/babybauch/babybauch-05.jpg",
+      "alt": "Babybauch Galerie Foto 05",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 4
+    },
+    {
+      "id": "babybauch-06",
+      "file": "assets/images/galerie/babybauch/babybauch-06.webp",
+      "originalFile": "assets/images/galerie/babybauch/babybauch-06.jpg",
+      "alt": "Babybauch Galerie Foto 06",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 5
+    },
+    {
+      "id": "babybauch-07",
+      "file": "assets/images/galerie/babybauch/babybauch-07.webp",
+      "originalFile": "assets/images/galerie/babybauch/babybauch-07.jpg",
+      "alt": "Babybauch Galerie Foto 07",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 6
+    },
+    {
+      "id": "babybauch-08",
+      "file": "assets/images/galerie/babybauch/babybauch-08.webp",
+      "originalFile": "assets/images/galerie/babybauch/babybauch-08.jpg",
+      "alt": "Babybauch Galerie Foto 08",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 7
+    },
+    {
+      "id": "babybauch-09",
+      "file": "assets/images/galerie/babybauch/babybauch-09.webp",
+      "originalFile": "assets/images/galerie/babybauch/babybauch-09.jpg",
+      "alt": "Babybauch Galerie Foto 09",
+      "variant": "normal",
+      "featured": false,
+      "visible": true,
+      "order": 8
+    }
+  ],
+  "updatedAt": "2026-06-05T16:05:24.450Z",
+  "publishedAt": null
+}

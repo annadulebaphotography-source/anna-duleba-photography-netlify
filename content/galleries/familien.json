@@ -1,0 +1,24 @@
+{
+  "id": "familien",
+  "title": "Familien Galerie",
+  "slug": "familien-galerie",
+  "category": "Familie",
+  "categoryPage": "familie.html",
+  "status": "draft",
+  "layout": "mosaic",
+  "seo": {
+    "title": "Familien Galerie | Anna Duleba Photography",
+    "description": "Natuerliche Familienfotos voller Naehe, Bewegung und Verbindung.",
+    "canonical": "https://www.annadulebaphotography.de/pages/familien-galerie.html",
+    "ogImage": ""
+  },
+  "settings": {
+    "imageFolder": "assets/images/galerie/familien",
+    "filePrefix": "familien",
+    "defaultAltPattern": "Familien Galerie Foto {number}",
+    "placeholderCount": 12
+  },
+  "images": [],
+  "updatedAt": "2026-06-01T05:38:24.646Z",
+  "publishedAt": null
+}
