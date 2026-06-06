@@ -116,7 +116,7 @@ body {
 
     overflow: hidden;
 
-   background: #000;
+   background: #efe7dd;
 }
 
   
@@ -133,6 +133,8 @@ body {
     object-position: center 35%;
 
     display: block;
+
+    background-color: #efe7dd;
 }
 .hero-section picture {
     display: block;
@@ -169,8 +171,7 @@ body {
 
     inset: 0;
 
-    background:
-    rgba(0,0,0,0.12);
+    background: rgba(58,49,40,0.08);
 }
 
 .hero-logo {

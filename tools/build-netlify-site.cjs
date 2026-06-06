@@ -62,10 +62,22 @@ function appendStylesheet(html, href) {
   return html.replace(/<\/head>/i, `    <link rel="stylesheet" href="${href}" />\n</head>`);
 }
 
+function prioritizeHeroImages(html) {
+  return html.replace(/<img\b([^>]*\bclass=["'][^"']*\bhero-image\b[^"']*["'][^>]*)>/gi, (match, attrs) => {
+    const selfClosing = /\/\s*$/.test(attrs);
+    let next = attrs.replace(/\/\s*$/, '').trimEnd();
+    if (!/\bloading=/i.test(next)) next += ' loading="eager"';
+    if (!/\bfetchpriority=/i.test(next)) next += ' fetchpriority="high"';
+    if (!/\bdecoding=/i.test(next)) next += ' decoding="async"';
+    return `<img${next}${selfClosing ? ' /' : ''}>`;
+  });
+}
+
 function transformHtmlFile(file) {
   const full = path.join(out, file);
   let html = fs.readFileSync(full, 'utf8');
   html = stripHeavyAdmin(html);
+  html = prioritizeHeroImages(html);
 
   const inPages = file.replace(/\\/g, '/').startsWith('pages/');
   const prefix = inPages ? '../' : '';
