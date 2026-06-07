@@ -6,6 +6,9 @@
         provider: null,
         configLoaded: false,
         firebaseReady: false,
+        adminEmails: [],
+        signOut: null,
+        rejectedEmail: '',
     };
 
     function isLocalPreview() {
@@ -16,6 +19,21 @@
         authState.user = user || null;
         document.body.classList.toggle('adp-cms-authenticated', Boolean(user) || isLocalPreview());
         document.dispatchEvent(new CustomEvent('adp:cms-auth-changed', { detail: { user: authState.user } }));
+    }
+
+    function isAllowedAdmin(user) {
+        const email = String(user?.email || '').trim().toLowerCase();
+        return Boolean(email && authState.adminEmails.includes(email));
+    }
+
+    async function rejectUnauthorized(user) {
+        const email = String(user?.email || '').trim().toLowerCase();
+        if (authState.rejectedEmail === email) return;
+        authState.rejectedEmail = email;
+        console.log('CMS login:', user?.email || '');
+        await authState.signOut?.(authState.auth);
+        setAuthenticated(null);
+        window.alert('Kein Zugriff auf das CMS.');
     }
 
     function injectLoginStyles() {
@@ -40,6 +58,9 @@
             throw new Error('Firebase CMS login is not configured in Netlify Environment Variables.');
         }
         authState.firebaseConfig = data.config;
+        authState.adminEmails = Array.isArray(data.adminEmails)
+            ? data.adminEmails.map((email) => String(email || '').trim().toLowerCase()).filter(Boolean)
+            : [];
         return authState.firebaseConfig;
     }
 
@@ -51,8 +72,21 @@
         const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(config);
         authState.auth = authModule.getAuth(app);
         authState.provider = new authModule.GoogleAuthProvider();
-        authModule.onAuthStateChanged(authState.auth, (user) => setAuthenticated(user));
+        authModule.onAuthStateChanged(authState.auth, async (user) => {
+            if (!user) {
+                setAuthenticated(null);
+                return;
+            }
+            console.log('CMS login:', user.email);
+            if (!isAllowedAdmin(user)) {
+                await rejectUnauthorized(user);
+                return;
+            }
+            authState.rejectedEmail = '';
+            setAuthenticated(user);
+        });
         authState.signInWithPopup = authModule.signInWithPopup;
+        authState.signOut = authModule.signOut;
         authState.firebaseReady = true;
         return authState;
     }
@@ -66,6 +100,11 @@
         if (!authState.auth.currentUser) {
             await authState.signInWithPopup(authState.auth, authState.provider);
         }
+        if (!isAllowedAdmin(authState.auth.currentUser)) {
+            await rejectUnauthorized(authState.auth.currentUser);
+            throw new Error('Kein Zugriff auf das CMS.');
+        }
+        authState.rejectedEmail = '';
         setAuthenticated(authState.auth.currentUser);
         return authState.auth.currentUser;
     }

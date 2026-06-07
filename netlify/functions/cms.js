@@ -74,6 +74,7 @@ function publicFirebaseConfig() {
   return {
     ok: Boolean(config.apiKey && config.authDomain && config.projectId && config.appId),
     config,
+    adminEmails: adminEmails(),
   };
 }
 
