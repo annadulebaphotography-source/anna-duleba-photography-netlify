@@ -20,38 +20,45 @@
   },
   "images": [
     {
+      "id": "studio-1780811073348-1",
+      "file": "assets/images/galerie/studio/studio-neugebornefotostudio6-20260607054432.jpg",
+      "alt": "Studio Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
       "id": "studio-1780809971019-1",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio1-20260607052610.jpg",
       "alt": "Studio Galerie",
-      "order": 1,
+      "order": 2,
       "visible": true
     },
     {
       "id": "studio-1780809972307-2",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio2-20260607052611.jpg",
       "alt": "Studio Galerie",
-      "order": 2,
+      "order": 3,
       "visible": true
     },
     {
       "id": "studio-1780809973649-3",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio3-20260607052612.jpg",
       "alt": "Studio Galerie",
-      "order": 3,
+      "order": 4,
       "visible": true
     },
     {
       "id": "studio-1780809974720-4",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio4-20260607052614.jpg",
       "alt": "Studio Galerie",
-      "order": 4,
+      "order": 5,
       "visible": true
     },
     {
       "id": "studio-1780809975910-5",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio5-20260607052615.jpg",
       "alt": "Studio Galerie",
-      "order": 5,
+      "order": 6,
       "visible": true
     },
     {
