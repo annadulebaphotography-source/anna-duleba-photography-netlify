@@ -20,8 +20,8 @@
   },
   "images": [
     {
-      "id": "familien-1780836132435-1",
-      "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe06-20260607124212.jpg",
+      "id": "familien-1780836157339-1",
+      "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe06-20260607124237.jpg",
       "alt": "Familien Galerie",
       "order": 1,
       "visible": true
@@ -34,31 +34,38 @@
       "visible": true
     },
     {
+      "id": "familien-1780835632259-1",
+      "file": "assets/images/galerie/familien/familien-fineart-karlsruhe-anna-duleba1-kopie-20260607123321.png",
+      "alt": "Familien Galerie",
+      "order": 3,
+      "visible": true
+    },
+    {
       "id": "familien-1780833769516-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe02-20260607120249.jpg",
       "alt": "Familien Galerie",
-      "order": 3,
+      "order": 4,
       "visible": true
     },
     {
       "id": "familien-1780832885345-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe01-20260607114805.jpg",
       "alt": "Familien Galerie",
-      "order": 4,
+      "order": 5,
       "visible": true
     },
     {
       "id": "familien-1780832886792-2",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe03-20260607114806.jpg",
       "alt": "Familien Galerie",
-      "order": 5,
+      "order": 6,
       "visible": true
     },
     {
       "id": "familien-1780832888068-3",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe04-20260607114808.jpg",
       "alt": "Familien Galerie",
-      "order": 6,
+      "order": 7,
       "visible": true
     }
   ],
