@@ -54,6 +54,37 @@
         return `${url}${separator}v=${version}`;
     }
 
+    function canUseNetlifyImageCdn(url) {
+        if (!url || !url.startsWith('/')) return false;
+        if (/^\/\.netlify\/images/i.test(url)) return false;
+        return !/^(localhost|127\.0\.0\.1|\[::1\])$/i.test(window.location.hostname);
+    }
+
+    function netlifyImageUrl(url, width) {
+        const cleanUrl = String(url || '').split('?')[0];
+        const params = new URLSearchParams({
+            url: cleanUrl,
+            w: String(width),
+            q: '68',
+            fm: 'webp',
+        });
+        return `/.netlify/images?${params.toString()}`;
+    }
+
+    function galleryPreviewUrl(image, width = 900) {
+        const original = normalizeAssetUrl(image);
+        if (!canUseNetlifyImageCdn(original)) return versionedAssetUrl(image);
+        return netlifyImageUrl(original, width);
+    }
+
+    function galleryPreviewSrcset(image) {
+        const original = normalizeAssetUrl(image);
+        if (!canUseNetlifyImageCdn(original)) return '';
+        return [480, 720, 960, 1280]
+            .map((width) => `${netlifyImageUrl(original, width)} ${width}w`)
+            .join(', ');
+    }
+
     function cmsFetch(url, options) {
         if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
         return window.adpCmsAuth.fetch(url, options);
@@ -84,11 +115,16 @@
     function renderImages(images) {
         const visible = visibleSortedImages(images);
         return visible.map((image, index) => {
-            const url = versionedAssetUrl(image);
+            const fullUrl = versionedAssetUrl(image);
+            const previewUrl = galleryPreviewUrl(image);
+            const srcset = galleryPreviewSrcset(image);
+            const loading = index < 3 ? 'eager' : 'lazy';
+            const priority = index < 3 ? ' fetchpriority="high"' : '';
+            const srcsetAttr = srcset ? ` srcset="${escapeHtml(srcset)}" sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"` : '';
             return [
                 `<div class="${itemClass(image)}" data-gallery-image-id="${escapeHtml(image.id)}">`,
-                `    <a class="adp-gallery-image-link" href="${escapeHtml(url)}" data-lightbox-index="${index}">`,
-                `        <img src="${escapeHtml(url)}" alt="${escapeHtml(image.alt || '')}" loading="lazy" data-gallery-retry-src="${escapeHtml(url)}">`,
+                `    <a class="adp-gallery-image-link" href="${escapeHtml(fullUrl)}" data-lightbox-index="${index}">`,
+                `        <img src="${escapeHtml(previewUrl)}"${srcsetAttr} alt="${escapeHtml(image.alt || '')}" loading="${loading}" decoding="async"${priority} data-gallery-retry-src="${escapeHtml(previewUrl)}" data-gallery-full-src="${escapeHtml(fullUrl)}">`,
                 '    </a>',
                 renderEditControls(image),
                 '</div>',
@@ -202,8 +238,14 @@
     function attachLightboxEvents() {
         activeGrid.querySelectorAll('img[data-gallery-retry-src]').forEach((image) => {
             image.addEventListener('error', () => {
-                if (image.dataset.galleryRetried === '1') return;
-                image.dataset.galleryRetried = '1';
+                if (image.dataset.galleryRetried === 'full') return;
+                if (image.dataset.galleryRetried === 'retry' && image.dataset.galleryFullSrc) {
+                    image.dataset.galleryRetried = 'full';
+                    image.removeAttribute('srcset');
+                    image.src = image.dataset.galleryFullSrc;
+                    return;
+                }
+                image.dataset.galleryRetried = 'retry';
                 const base = image.dataset.galleryRetrySrc;
                 const separator = base.includes('?') ? '&' : '?';
                 window.setTimeout(() => {

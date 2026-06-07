@@ -91,7 +91,7 @@ function transformHtmlFile(file) {
   const prefix = inPages ? '../' : '';
   if (hasGalleryPage(file, html)) {
     html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=gallery-atomic-20260607`);
-    html = appendScript(html, `${prefix}js/netlify-gallery-renderer.js?v=gallery-atomic-20260607`);
+    html = appendScript(html, `${prefix}js/netlify-gallery-renderer.js?v=gallery-speed-20260607`);
     html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=netlify-phase3`);
   }
   if (hasBlogArticlePage(file)) {
