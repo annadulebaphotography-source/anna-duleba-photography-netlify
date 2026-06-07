@@ -18,7 +18,15 @@
     "defaultAltPattern": "Familien Galerie Foto {number}",
     "placeholderCount": 12
   },
-  "images": [],
+  "images": [
+    {
+      "id": "familien-1780831609152-1",
+      "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe03-20260607112648.png",
+      "alt": "Familien Galerie",
+      "order": 1,
+      "visible": true
+    }
+  ],
   "updatedAt": "2026-06-01T05:38:24.646Z",
   "publishedAt": null
 }
