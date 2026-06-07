@@ -20,31 +20,38 @@
   },
   "images": [
     {
+      "id": "familien-1780833769516-1",
+      "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe02-20260607120249.jpg",
+      "alt": "Familien Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
       "id": "familien-1780832885345-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe01-20260607114805.jpg",
       "alt": "Familien Galerie",
-      "order": 1,
+      "order": 2,
       "visible": true
     },
     {
       "id": "familien-1780832886792-2",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe03-20260607114806.jpg",
       "alt": "Familien Galerie",
-      "order": 2,
+      "order": 3,
       "visible": true
     },
     {
       "id": "familien-1780832888068-3",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe04-20260607114808.jpg",
       "alt": "Familien Galerie",
-      "order": 3,
+      "order": 4,
       "visible": true
     },
     {
       "id": "familien-1780831609152-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe03-20260607112648.png",
       "alt": "Familien Galerie",
-      "order": 4,
+      "order": 5,
       "visible": true
     }
   ],
