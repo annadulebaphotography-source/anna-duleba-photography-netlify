@@ -2238,6 +2238,20 @@ body.fade-out {
     border-radius: 8px;
 }
 
+.blog-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 220px;
+    border: 1px dashed rgba(107, 76, 53, .36);
+    border-radius: 8px;
+    background: rgba(255, 250, 245, .72);
+    color: #6b4c35;
+    font: inherit;
+    cursor: pointer;
+}
+
 .blog-article-image figcaption {
     margin-top: 10px;
     color: #8b7762;

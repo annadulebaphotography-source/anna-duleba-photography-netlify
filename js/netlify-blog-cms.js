@@ -101,7 +101,9 @@
             const src = publicUrl(block.src);
             return `
                 <figure class="blog-article-image" data-blog-block="${id}" data-blog-type="image">
-                    <img src="${escapeHtml(src)}" alt="${escapeHtml(block.alt)}" data-blog-image-field="src">
+                    ${src
+                        ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(block.alt)}" data-blog-image-field="src">`
+                        : `<button type="button" class="blog-image-placeholder" data-blog-image-field="src">+ Zdjecie wybrac</button>`}
                     <figcaption data-blog-field="caption">${escapeHtml(block.caption)}</figcaption>
                 </figure>`;
         }
@@ -344,20 +346,57 @@
     }
 
     async function uploadImageFile(file, target, blockId) {
+        const uploadFile = await prepareImageForUpload(file);
         const response = await fetch('/__cms/blog-images', {
             method: 'POST',
             headers: {
-                'Content-Type': file.type || 'application/octet-stream',
+                'Content-Type': uploadFile.type || file.type || 'application/octet-stream',
                 'X-Blog-Post': post.id,
                 'X-Blog-Target': target,
                 'X-Blog-Block': blockId || '',
-                'X-File-Name': encodeURIComponent(file.name || 'blog-image'),
+                'X-File-Name': encodeURIComponent(uploadFile.name || file.name || 'blog-image'),
             },
-            body: file,
+            body: uploadFile,
         });
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.src) throw new Error(data.error || 'Upload failed');
         return data.src;
+    }
+
+    function prepareImageForUpload(file) {
+        if (!file || !file.type?.startsWith('image/')) return Promise.resolve(file);
+        if (file.type === 'image/gif' || file.size <= 1800 * 1024) return Promise.resolve(file);
+        return new Promise((resolve) => {
+            const image = new Image();
+            const objectUrl = URL.createObjectURL(file);
+            image.onload = () => {
+                URL.revokeObjectURL(objectUrl);
+                const maxSide = 1800;
+                const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+                if (scale >= 1 && file.size <= 2400 * 1024) {
+                    resolve(file);
+                    return;
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(image.width * scale));
+                canvas.height = Math.max(1, Math.round(image.height * scale));
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        resolve(file);
+                        return;
+                    }
+                    const cleanName = (file.name || 'blog-image').replace(/\.[^.]+$/, '');
+                    resolve(new File([blob], `${cleanName}.jpg`, { type: 'image/jpeg' }));
+                }, 'image/jpeg', 0.84);
+            };
+            image.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                resolve(file);
+            };
+            image.src = objectUrl;
+        });
     }
 
     function ensureImagePanel() {
@@ -409,6 +448,7 @@
                 let src = element.dataset.blogSrc || element.getAttribute('src') || '';
                 const figure = element.closest('[data-blog-block]');
                 if (selectedFile) {
+                    status.textContent = selectedFile.size > 1800 * 1024 ? 'Zmniejszam i wysylam obraz...' : 'Wysylam obraz...';
                     src = await uploadImageFile(
                         selectedFile,
                         element.dataset.blogPostImage || 'blockImage',
@@ -416,15 +456,22 @@
                     );
                 }
                 element.dataset.blogSrc = src;
+                const imageElement = element.matches('img') ? element : document.createElement('img');
+                if (!element.matches('img')) {
+                    imageElement.setAttribute('data-blog-image-field', 'src');
+                    element.replaceWith(imageElement);
+                }
                 if (selectedPreviewUrl) {
                     temporaryPreviewUrls.add(selectedPreviewUrl);
-                    element.src = selectedPreviewUrl;
-                    element.dataset.blogPreviewSrc = selectedPreviewUrl;
+                    imageElement.src = selectedPreviewUrl;
+                    imageElement.dataset.blogSrc = src;
+                    imageElement.dataset.blogPreviewSrc = selectedPreviewUrl;
                     status.textContent = 'Podglad zaktualizowany';
                 } else {
-                    element.src = publicUrl(src);
+                    imageElement.src = publicUrl(src);
+                    imageElement.dataset.blogSrc = src;
                 }
-                element.alt = altInput.value.trim();
+                imageElement.alt = altInput.value.trim();
                 await savePost();
                 panel.classList.remove('is-open');
             } catch (error) {
