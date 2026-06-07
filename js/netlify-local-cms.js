@@ -38,6 +38,11 @@
         return `/${path.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '')}`;
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function imageData(element) {
         const key = element.dataset.editableImage;
         const saved = pageDraft()[key];
@@ -159,7 +164,7 @@
     async function uploadImageFile(file, key) {
         const previewUrl = URL.createObjectURL(file);
         try {
-            const response = await fetch('/__cms/images', {
+            const response = await cmsFetch('/__cms/images', {
                 method: 'POST',
                 headers: {
                     'Content-Type': file.type || 'application/octet-stream',
@@ -173,7 +178,11 @@
             if (!response.ok || !data.src) throw new Error(data.error || 'Upload endpoint unavailable');
             URL.revokeObjectURL(previewUrl);
             return { src: data.src };
-        } catch {
+        } catch (error) {
+            if (/CMS_ACCESS_TOKEN|autoryzacji|auth helper/i.test(error.message || '')) {
+                window.alert(error.message);
+                throw error;
+            }
             return { src: previewUrl, localOnly: true };
         }
     }

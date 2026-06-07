@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const DEFAULT_OWNER = 'annadulebaphotography-source';
 const DEFAULT_REPO = 'anna-duleba-photography-netlify';
 const DEFAULT_BRANCH = 'main';
@@ -49,6 +51,38 @@ function requireToken(config) {
     error.statusCode = 500;
     throw error;
   }
+}
+
+function cmsAccessToken() {
+  return String(process.env.CMS_ACCESS_TOKEN || '').trim();
+}
+
+function timingSafeMatch(actual, expected) {
+  const actualBuffer = Buffer.from(String(actual || ''), 'utf8');
+  const expectedBuffer = Buffer.from(String(expected || ''), 'utf8');
+  return actualBuffer.length === expectedBuffer.length && crypto.timingSafeEqual(actualBuffer, expectedBuffer);
+}
+
+function requireCmsAuthorization(event) {
+  const expected = cmsAccessToken();
+  if (!expected) {
+    const error = new Error('CMS_ACCESS_TOKEN is not configured in Netlify environment variables.');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const header = String(event.headers?.authorization || event.headers?.Authorization || '').trim();
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  const actual = match ? String(match[1] || '').trim() : '';
+  if (!actual || !timingSafeMatch(actual, expected)) {
+    const error = new Error('Unauthorized CMS request.');
+    error.statusCode = 401;
+    throw error;
+  }
+}
+
+function isWriteMethod(method) {
+  return ['POST', 'PUT', 'PATCH', 'DELETE'].includes(String(method || '').toUpperCase());
 }
 
 function nowStamp() {
@@ -452,6 +486,8 @@ exports.handler = async (event) => {
     const config = githubConfig();
     const method = event.httpMethod || 'GET';
     const path = routePath(event);
+
+    if (isWriteMethod(method)) requireCmsAuthorization(event);
 
     if (method === 'GET' && path === '/api/content') {
       return response(200, await readGithubFile(config, 'content/site-content.json', {}));

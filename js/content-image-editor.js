@@ -8,6 +8,11 @@
         return Array.from(document.querySelectorAll('[data-editable-image]'));
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function isEditModeActive() {
         return Boolean(window.adpEditMode?.getState?.().editMode);
     }
@@ -208,7 +213,7 @@
             alt: panel.querySelector('[data-image-alt]').value.trim(),
             title: panel.querySelector('[data-image-title]').value.trim(),
         };
-        const response = await fetch('/api/content', {
+        const response = await cmsFetch('/api/content', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -237,7 +242,7 @@
         saveButton.disabled = true;
         setStatus('Upload läuft...');
         try {
-            const response = await fetch('/__cms/images', {
+            const response = await cmsFetch('/__cms/images', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -252,7 +257,7 @@
             if (!response.ok) throw new Error(data.error || 'Image upload failed');
 
             const nextData = { src: data.src || '', alt, title };
-            const saveResponse = await fetch('/api/content', {
+            const saveResponse = await cmsFetch('/api/content', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {

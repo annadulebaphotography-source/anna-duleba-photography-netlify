@@ -50,6 +50,11 @@
             .replaceAll('"', '&quot;');
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function cleanEditableText(element) {
         return (element?.innerText || element?.textContent || '')
             .replace(/\u00a0/g, ' ')
@@ -253,19 +258,24 @@
 
     async function savePost() {
         if (!post) return;
-        const next = collectPost();
-        const response = await fetch(`/__cms/blog-posts/${encodeURIComponent(post.id)}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(next),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) {
-            window.alert(data.error || 'Nie udalo sie zapisac bloga.');
-            return;
+        try {
+            const next = collectPost();
+            const response = await cmsFetch(`/__cms/blog-posts/${encodeURIComponent(post.id)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(next),
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                window.alert(data.error || 'Nie udalo sie zapisac bloga.');
+                return;
+            }
+            post = data.post || next;
+            setStatus('Blog zapisany');
+        } catch (error) {
+            window.alert(error.message || 'Nie udalo sie zapisac bloga.');
+            setStatus('Blog CMS');
         }
-        post = data.post || next;
-        setStatus('Blog zapisany');
     }
 
     async function deletePost() {
@@ -276,18 +286,23 @@
         const ok = window.confirm(`Usunac artykul?\n\n${post.title}`);
         if (!ok) return;
         setStatus('Usuwam artykul...');
-        const response = await fetch(`/__cms/blog-posts/${encodeURIComponent(post.id)}`, {
-            method: 'DELETE',
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) {
-            window.alert(data.error || 'Nie udalo sie usunac artykulu.');
+        try {
+            const response = await cmsFetch(`/__cms/blog-posts/${encodeURIComponent(post.id)}`, {
+                method: 'DELETE',
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                window.alert(data.error || 'Nie udalo sie usunac artykulu.');
+                setStatus('Blog CMS');
+                return;
+            }
+            setStatus('Artykul usuniety. Poczekaj na deploy Netlify.');
+            window.alert('Artykul zostal usuniety. Netlify musi teraz skonczyc deploy.');
+            window.location.href = '/pages/blog-neugeborene.html?edit=1';
+        } catch (error) {
+            window.alert(error.message || 'Nie udalo sie usunac artykulu.');
             setStatus('Blog CMS');
-            return;
         }
-        setStatus('Artykul usuniety. Poczekaj na deploy Netlify.');
-        window.alert('Artykul zostal usuniety. Netlify musi teraz skonczyc deploy.');
-        window.location.href = '/pages/blog-neugeborene.html?edit=1';
     }
 
     async function submitNewPost(fields, statusElement) {
@@ -300,19 +315,22 @@
         if (submitButton) submitButton.disabled = true;
         setStatus('Tworze nowy artykul...');
         statusElement.textContent = 'Tworze nowy artykul...';
-        const response = await fetch('/__cms/blog-posts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                title,
-                slug: slugify(title),
-                category: fields.category.trim() || 'blog',
-                metaDescription: fields.metaDescription.trim(),
-            }),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.post) {
-            statusElement.textContent = data.error || 'Nie udalo sie utworzyc bloga.';
+        let data = {};
+        try {
+            const response = await cmsFetch('/__cms/blog-posts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title,
+                    slug: slugify(title),
+                    category: fields.category.trim() || 'blog',
+                    metaDescription: fields.metaDescription.trim(),
+                }),
+            });
+            data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.post) throw new Error(data.error || 'Nie udalo sie utworzyc bloga.');
+        } catch (error) {
+            statusElement.textContent = error.message || 'Nie udalo sie utworzyc bloga.';
             setStatus('Blog CMS');
             if (submitButton) submitButton.disabled = false;
             return;
@@ -374,7 +392,7 @@
 
     async function uploadImageFile(file, target, blockId) {
         const uploadFile = await prepareImageForUpload(file);
-        const response = await fetch('/__cms/blog-images', {
+        const response = await cmsFetch('/__cms/blog-images', {
             method: 'POST',
             headers: {
                 'Content-Type': uploadFile.type || file.type || 'application/octet-stream',

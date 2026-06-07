@@ -44,6 +44,11 @@
         return file.startsWith('/') ? file : `/${file}`;
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function visibleSortedImages(images) {
         return (Array.isArray(images) ? images : [])
             .filter((image) => image.visible !== false)
@@ -195,7 +200,7 @@
     }
 
     async function saveGalleryJson() {
-        const response = await fetch(`/__cms/galleries/${encodeURIComponent(activeGalleryId)}`, {
+        const response = await cmsFetch(`/__cms/galleries/${encodeURIComponent(activeGalleryId)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(activeGallery),
@@ -205,7 +210,7 @@
     }
 
     async function uploadGalleryImage(file) {
-        const response = await fetch('/__cms/gallery-images', {
+        const response = await cmsFetch('/__cms/gallery-images', {
             method: 'POST',
             headers: {
                 'Content-Type': file.type || 'application/octet-stream',

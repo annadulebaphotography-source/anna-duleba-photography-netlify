@@ -22,6 +22,11 @@
             .replaceAll('"', '&quot;');
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function delay(ms) {
         return new Promise((resolve) => window.setTimeout(resolve, ms));
     }
@@ -57,19 +62,22 @@
         if (submitButton) submitButton.disabled = true;
         setStatus('Tworze nowy artykul...');
         statusElement.textContent = 'Tworze nowy artykul...';
-        const response = await fetch('/__cms/blog-posts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                title,
-                slug: slugify(title),
-                category: fields.category.trim() || 'blog',
-                metaDescription: fields.metaDescription.trim(),
-            }),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.post) {
-            statusElement.textContent = data.error || 'Nie udalo sie utworzyc bloga.';
+        let data = {};
+        try {
+            const response = await cmsFetch('/__cms/blog-posts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title,
+                    slug: slugify(title),
+                    category: fields.category.trim() || 'blog',
+                    metaDescription: fields.metaDescription.trim(),
+                }),
+            });
+            data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.post) throw new Error(data.error || 'Nie udalo sie utworzyc bloga.');
+        } catch (error) {
+            statusElement.textContent = error.message || 'Nie udalo sie utworzyc bloga.';
             setStatus('Blog CMS');
             if (submitButton) submitButton.disabled = false;
             return;

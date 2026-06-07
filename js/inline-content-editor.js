@@ -12,6 +12,11 @@
         return Array.from(document.querySelectorAll('[data-editable]'));
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function applySavedContent() {
         const pageContent = content[page] || {};
         editableElements().forEach((element) => {
@@ -90,7 +95,7 @@
             if (element) fields[key] = element.innerHTML.trim();
         });
 
-        const response = await fetch('/api/content', {
+        const response = await cmsFetch('/api/content', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {

@@ -24,6 +24,11 @@
         return '&#9733;'.repeat(Math.max(1, Math.min(5, Number(rating) || 5)));
     }
 
+    function cmsFetch(url, options) {
+        if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
+        return window.adpCmsAuth.fetch(url, options);
+    }
+
     function renderCard(review) {
         return `
             <div style="flex:1 1 360px;background:#ffffff;border:1px solid #efe2d5;border-radius:14px;padding:18px 18px 16px;">
@@ -102,14 +107,17 @@
     }
 
     async function createReview(payload) {
-        const response = await fetch('/__cms/reviews', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.review) {
-            window.alert(data.error || 'Nie udalo sie dodac opinii.');
+        let data = {};
+        try {
+            const response = await cmsFetch('/__cms/reviews', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.review) throw new Error(data.error || 'Nie udalo sie dodac opinii.');
+        } catch (error) {
+            window.alert(error.message || 'Nie udalo sie dodac opinii.');
             return;
         }
         reviews = Array.isArray(data.reviews) ? data.reviews : [data.review, ...reviews];
