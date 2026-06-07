@@ -87,8 +87,8 @@ function transformHtmlFile(file) {
     html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=netlify-phase3`);
   }
   if (hasBlogArticlePage(file)) {
-    html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=netlify-blog-phase2`);
-    html = appendScript(html, `${prefix}js/netlify-blog-cms.js?v=netlify-blog-phase2`);
+    html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=netlify-blog-phase3`);
+    html = appendScript(html, `${prefix}js/netlify-blog-cms.js?v=netlify-blog-phase3`);
   }
   if (html.includes('data-reviews-root')) html = appendScript(html, `${prefix}js/netlify-reviews.js?v=netlify-phase1`);
   if (hasContentHooks(html)) {

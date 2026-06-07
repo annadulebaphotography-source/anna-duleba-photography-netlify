@@ -161,6 +161,89 @@ async function writeJsonFile(config, filePath, data, message) {
   await writeGithubFile(config, filePath, Buffer.from(formatted, 'utf8'), message);
 }
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function newBlogSourceHtml(post) {
+  const title = escapeHtml(post.title);
+  const description = escapeHtml(post.metaDescription || '');
+  const image = escapeHtml(post.heroImage || 'assets/images/anna-duleba-fotografie-blog.jpg');
+  return `<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${title} | Anna Duleba Photography</title>
+    <meta name="description" content="${description}" />
+    <link rel="canonical" href="https://www.annadulebaphotography.de/blog/${escapeHtml(post.slug)}" />
+    <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<header class="main-header">
+<div class="container">
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="../index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="newborn.html">Newborn</a>
+        <a href="babybauch.html">Babybauch</a>
+        <a href="studio.html">Studio</a>
+    </div>
+    <div class="nav-right">
+        <a href="familie.html">Familie</a>
+        <a href="frauenfotografie.html">Frauenfotografie</a>
+        <a href="saisonale-angebote.html">Saisonale Angebote</a>
+        <a href="digital-atelier.html">Digital Atelier</a>
+        <a href="workshop.html">Workshop</a>
+        <a href="preisliste.html">Preise</a>
+        <a href="kontakt.html">Kontakt</a>
+    </div>
+</nav>
+<button class="mobile-menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+</button>
+</div>
+</header>
+<main id="main-content">
+<section class="content-section">
+<div class="content-wrapper">
+<div class="content-frame">
+<div class="content-card blog-article">
+    <p class="section-label">${escapeHtml(post.category || 'Blog')}</p>
+    <h1 class="main-title">${title}</h1>
+    <p class="subtitle">${description}</p>
+    <img class="blog-article-hero" src="../${image}" alt="${title}">
+    <p>${escapeHtml(post.blocks?.[0]?.text || 'Neuer Blogbeitrag.')}</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+    <div class="site-footer-inner">
+        <div class="site-footer-brand">
+            <p class="site-footer-title">Anna Duleba Photography</p>
+            <p>Fotografie für Neugeborene, Babybauch, Familie und Fine Art in Walzbachtal & Karlsruhe.</p>
+        </div>
+        <nav class="site-footer-links" aria-label="Footer Navigation">
+            <a href="kontakt.html">Kontakt</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+        </nav>
+    </div>
+</footer>
+<script src="../js/mobile-nav.js"></script>
+</body>
+</html>
+`;
+}
+
 function normalizeContentPage(page) {
   const value = String(page || '').replace(/\\/g, '/').trim();
   if (value === 'home' || value === 'blog' || /^pages\/[a-z0-9-]+\.html$/.test(value)) return value;
@@ -266,6 +349,12 @@ async function createBlogPost(event, config) {
     updatedAt: new Date().toISOString(),
   };
   posts.unshift(post);
+  await writeGithubFile(
+    config,
+    post.sourceFile,
+    Buffer.from(newBlogSourceHtml(post), 'utf8'),
+    `CMS: create blog page ${slug}`
+  );
   await writeJsonFile(config, 'content/blog-posts.json', posts, `CMS: create blog ${slug}`);
   return response(200, { ok: true, post });
 }

@@ -17,6 +17,7 @@
     let editing = false;
     let toolbar = null;
     let imagePanel = null;
+    const temporaryPreviewUrls = new Set();
 
     function uid() {
         return (crypto.randomUUID && crypto.randomUUID()) || `block-${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -267,7 +268,14 @@
                     );
                 }
                 element.dataset.blogSrc = src;
-                element.src = publicUrl(src);
+                if (selectedPreviewUrl) {
+                    temporaryPreviewUrls.add(selectedPreviewUrl);
+                    element.src = selectedPreviewUrl;
+                    element.dataset.blogPreviewSrc = selectedPreviewUrl;
+                    status.textContent = 'Podglad zaktualizowany';
+                } else {
+                    element.src = publicUrl(src);
+                }
                 element.alt = altInput.value.trim();
                 await savePost();
                 panel.classList.remove('is-open');
@@ -353,6 +361,11 @@
             event.preventDefault();
             savePost();
         }
+    });
+
+    window.addEventListener('beforeunload', () => {
+        temporaryPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+        temporaryPreviewUrls.clear();
     });
 
     loadPost().then(() => {

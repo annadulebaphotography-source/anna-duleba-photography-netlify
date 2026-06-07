@@ -1,5 +1,5 @@
 (function () {
-    if (!/\/pages\/blog\.html$/i.test(location.pathname) && !/\/blog\/?$/i.test(location.pathname)) return;
+    if (!/\/pages\/blog(?:\.html)?$/i.test(location.pathname.replace(/\/+$/, '')) && !/\/blog\/?$/i.test(location.pathname)) return;
 
     let toolbar = null;
 
@@ -18,6 +18,7 @@
         if (!title) return;
         const category = window.prompt('Kategoria, np. newborn, babybauch, familie:', 'newborn') || 'blog';
         const metaDescription = window.prompt('Krotki opis pod SEO / podtytul:', 'Nowy Blogbeitrag von Anna Duleba Photography.') || '';
+        setStatus('Tworze nowy artykul...');
         const response = await fetch('/__cms/blog-posts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -31,9 +32,17 @@
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.post) {
             window.alert(data.error || 'Nie udalo sie utworzyc bloga.');
+            setStatus('Blog CMS');
             return;
         }
-        window.location.href = `blog-${data.post.slug}.html?edit=1`;
+        const editUrl = `/blog/${data.post.slug}/?edit=1&v=${Date.now()}`;
+        setStatus('Artykul utworzony. Poczekaj na deploy Netlify.');
+        window.alert(`Artykul zostal utworzony.\n\nNetlify musi teraz skonczyc deploy. Po deployu otworz:\n${editUrl}`);
+    }
+
+    function setStatus(message) {
+        const status = toolbar?.querySelector('[data-blog-list-status]');
+        if (status) status.textContent = message;
     }
 
     function ensureToolbar() {
@@ -42,8 +51,8 @@
         toolbar = document.createElement('div');
         toolbar.className = 'adp-local-cms-toolbar adp-blog-list-cms-toolbar';
         toolbar.innerHTML = `
-            <span>Blog CMS</span>
-            <button type="button" data-create-blog>+ Neuer Blogbeitrag</button>
+            <span data-blog-list-status>Blog CMS</span>
+            <button type="button" data-create-blog>+ Dodaj artykul</button>
             <button type="button" data-close-blog-cms>Zamknij</button>`;
         document.body.appendChild(toolbar);
         toolbar.querySelector('[data-create-blog]').addEventListener('click', createPost);
