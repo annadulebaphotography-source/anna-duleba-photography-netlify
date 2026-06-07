@@ -68,6 +68,31 @@
         return `/blog/${item.slug}/`;
     }
 
+    function delay(ms) {
+        return new Promise((resolve) => window.setTimeout(resolve, ms));
+    }
+
+    async function waitForPublishedPost(newSlug, statusElement) {
+        const checkPath = `/pages/blog-${newSlug}.html`;
+        const editUrl = `${checkPath}?edit=1&v=${Date.now()}`;
+        for (let attempt = 1; attempt <= 24; attempt += 1) {
+            statusElement.textContent = `Artykul zapisany. Czekam na deploy Netlify (${attempt}/24)...`;
+            await delay(8000);
+            try {
+                const response = await fetch(`${checkPath}?v=${Date.now()}`, { cache: 'no-store' });
+                const text = await response.text();
+                if (response.ok && !/Seite nicht gefunden|Page not found|Not Found/i.test(text)) {
+                    statusElement.innerHTML = `Artykul jest gotowy: <a href="${escapeHtml(editUrl)}">${escapeHtml(editUrl)}</a>`;
+                    return editUrl;
+                }
+            } catch (error) {
+                // Keep waiting; Netlify can briefly return network/cache errors during deploy.
+            }
+        }
+        statusElement.innerHTML = `Artykul zapisany, ale Netlify jeszcze publikuje. Sprobuj za chwile: <a href="${escapeHtml(editUrl)}">${escapeHtml(editUrl)}</a>`;
+        return editUrl;
+    }
+
     function categoryForCurrentPage() {
         if (slug === 'neugeborene') return 'newborn';
         if (slug === 'babybauch') return 'babybauch';
@@ -271,6 +296,8 @@
             statusElement.textContent = 'Tytul jest wymagany.';
             return;
         }
+        const submitButton = statusElement.closest('.adp-blog-create-dialog')?.querySelector('[data-create-submit]');
+        if (submitButton) submitButton.disabled = true;
         setStatus('Tworze nowy artykul...');
         statusElement.textContent = 'Tworze nowy artykul...';
         const response = await fetch('/__cms/blog-posts', {
@@ -287,13 +314,13 @@
         if (!response.ok || !data.post) {
             statusElement.textContent = data.error || 'Nie udalo sie utworzyc bloga.';
             setStatus('Blog CMS');
+            if (submitButton) submitButton.disabled = false;
             return;
         }
-        const editUrl = `/blog/${data.post.slug}/?edit=1&v=${Date.now()}`;
         setStatus('Artykul utworzony. Poczekaj na deploy Netlify.');
-        statusElement.innerHTML = `Artykul utworzony. Poczekaj na deploy Netlify, potem otworz: <a href="${escapeHtml(editUrl)}">${escapeHtml(editUrl)}</a>`;
         posts.unshift(data.post);
         renderCategoryCards();
+        await waitForPublishedPost(data.post.slug, statusElement);
     }
 
     function ensureCreatePanel() {
