@@ -1,5 +1,30 @@
 [
   {
+    "id": "neuer-blogbeitrag-mq3eo7ce",
+    "status": "published",
+    "title": "Neuer Blogbeitrag",
+    "slug": "neuer-blogbeitrag",
+    "category": "blog",
+    "publishedAt": "2026-06-07",
+    "heroImage": "assets/images/anna-duleba-fotografie-blog.jpg",
+    "heroAlt": "Neuer Blogbeitrag",
+    "cardImage": "assets/images/anna-duleba-fotografie-blog.jpg",
+    "cardImageAlt": "Neuer Blogbeitrag",
+    "seoTitle": "Neuer Blogbeitrag",
+    "metaDescription": "",
+    "canonicalUrl": "https://www.annadulebaphotography.de/blog/neuer-blogbeitrag",
+    "sourceFile": "pages/blog-neuer-blogbeitrag.html",
+    "blocks": [
+      {
+        "id": "block-1780813993285",
+        "type": "paragraph",
+        "text": "Neuer Blogbeitrag."
+      }
+    ],
+    "createdAt": "2026-06-07T06:33:13.285Z",
+    "updatedAt": "2026-06-07T06:33:13.285Z"
+  },
+  {
     "id": "was-sollen-eltern-und-geschwister-zum-neugeborenen-shooting-anziehen-mq3czszw",
     "status": "published",
     "title": "WAS SOLLEN ELTERN UND GESCHWISTER ZUM NEUGEBORENEN-SHOOTING ANZIEHEN?",
