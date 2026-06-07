@@ -1,9 +1,17 @@
 (function () {
-    const articleMatch = location.pathname.match(/\/pages\/blog-([^/]+)\.html$/i)
-        || location.pathname.match(/\/blog\/([^/]+)\/?$/i);
-    if (!articleMatch) return;
+    function getArticleSlug() {
+        const path = location.pathname.replace(/\/+$/, '');
+        const pageMatch = path.match(/\/pages\/blog-([^/.]+)(?:\.html)?$/i);
+        if (pageMatch) return pageMatch[1];
+        const prettyMatch = path.match(/\/blog\/([^/.]+)$/i);
+        if (prettyMatch && prettyMatch[1] !== 'index') return prettyMatch[1];
+        const fileMatch = path.match(/\/blog-([^/.]+)(?:\.html)?$/i);
+        if (fileMatch) return fileMatch[1];
+        return '';
+    }
 
-    const slug = articleMatch[1];
+    const slug = getArticleSlug();
+    if (!slug) return;
     let posts = [];
     let post = null;
     let editing = false;
