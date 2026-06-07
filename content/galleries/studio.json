@@ -20,6 +20,13 @@
   },
   "images": [
     {
+      "id": "studio-1780811091164-1",
+      "file": "assets/images/galerie/studio/studio-neugebornefotostudio6-20260607054450.jpg",
+      "alt": "Studio Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
       "id": "studio-1780809971019-1",
       "file": "assets/images/galerie/studio/studio-neugebornefotostudio1-20260607052610.jpg",
       "alt": "Studio Galerie",
