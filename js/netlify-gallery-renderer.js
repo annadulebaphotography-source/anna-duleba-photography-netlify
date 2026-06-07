@@ -241,39 +241,7 @@
         });
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.src) throw new Error(data.error || 'Image upload failed');
-        await waitForPublishedImage(data.src);
         return data.src;
-    }
-
-    function publicAssetUrl(src) {
-        const value = String(src || '').replace(/\\/g, '/');
-        if (/^https?:|^data:|^blob:/i.test(value)) return value;
-        return value.startsWith('/') ? value : `/${value}`;
-    }
-
-    function delay(ms) {
-        return new Promise((resolve) => window.setTimeout(resolve, ms));
-    }
-
-    async function waitForPublishedImage(src) {
-        const url = publicAssetUrl(src);
-        if (!url || /^data:|^blob:/i.test(url)) return;
-        const started = Date.now();
-        const timeout = 60000;
-        while (Date.now() - started < timeout) {
-            try {
-                const separator = url.includes('?') ? '&' : '?';
-                const response = await fetch(`${url}${separator}ready=${Date.now()}`, {
-                    method: 'GET',
-                    cache: 'no-store',
-                });
-                if (response.ok) return;
-            } catch {
-                // Netlify may still be publishing the new Git commit.
-            }
-            await delay(2500);
-        }
-        throw new Error('Bild wurde hochgeladen, ist aber noch nicht auf Netlify sichtbar. Bitte kurz warten und erneut speichern.');
     }
 
     function prepareImageForUpload(file) {
