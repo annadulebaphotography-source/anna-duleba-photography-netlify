@@ -9,6 +9,7 @@
         adminEmails: [],
         signOut: null,
         rejectedEmail: '',
+        redirectStarted: false,
     };
 
     function isLocalPreview() {
@@ -72,6 +73,7 @@
         const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(config);
         authState.auth = authModule.getAuth(app);
         authState.provider = new authModule.GoogleAuthProvider();
+        authState.provider.setCustomParameters({ prompt: 'select_account' });
         authModule.onAuthStateChanged(authState.auth, async (user) => {
             if (!user) {
                 setAuthenticated(null);
@@ -86,8 +88,15 @@
             setAuthenticated(user);
         });
         authState.signInWithPopup = authModule.signInWithPopup;
+        authState.signInWithRedirect = authModule.signInWithRedirect;
+        authState.getRedirectResult = authModule.getRedirectResult;
         authState.signOut = authModule.signOut;
         authState.firebaseReady = true;
+        authState.getRedirectResult(authState.auth).catch((error) => {
+            if (!String(error?.code || '').includes('auth/no-auth-event')) {
+                window.alert(error.message || 'Nie udalo sie dokonczyc logowania do CMS.');
+            }
+        });
         return authState;
     }
 
@@ -98,7 +107,16 @@
         }
         await initFirebase();
         if (!authState.auth.currentUser) {
-            await authState.signInWithPopup(authState.auth, authState.provider);
+            try {
+                await authState.signInWithPopup(authState.auth, authState.provider);
+            } catch (error) {
+                if (String(error?.code || '') === 'auth/popup-blocked' || String(error?.code || '') === 'auth/popup-closed-by-user') {
+                    authState.redirectStarted = true;
+                    await authState.signInWithRedirect(authState.auth, authState.provider);
+                    throw new Error('Logowanie zostalo otwarte w trybie redirect.');
+                }
+                throw error;
+            }
         }
         if (!isAllowedAdmin(authState.auth.currentUser)) {
             await rejectUnauthorized(authState.auth.currentUser);
@@ -126,8 +144,9 @@
             button.disabled = true;
             button.textContent = 'Logowanie...';
             login().catch((error) => {
-                window.alert(error.message || 'Nie udalo sie zalogowac do CMS.');
+                if (!authState.redirectStarted) window.alert(error.message || 'Nie udalo sie zalogowac do CMS.');
             }).finally(() => {
+                if (authState.redirectStarted) return;
                 button.disabled = false;
                 button.textContent = 'CMS Login';
             });
