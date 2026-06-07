@@ -207,6 +207,67 @@ async function handleGalleryJsonSave(req, res, galleryId) {
   }
 }
 
+async function handleGalleryImageWithJson(req, res) {
+  try {
+    const galleryId = safePart(req.headers['x-gallery-id'] || 'gallery');
+    const body = JSON.parse((await readBody(req, 8 * 1024 * 1024)).toString('utf8'));
+    const gallery = body.gallery;
+    const image = body.image;
+    if (!gallery || typeof gallery !== 'object' || Array.isArray(gallery)) {
+      sendJson(res, 400, { error: 'Gallery data is required' });
+      return;
+    }
+    if (!image || typeof image !== 'object' || Array.isArray(image)) {
+      sendJson(res, 400, { error: 'Image data is required' });
+      return;
+    }
+
+    const originalName = decodeURIComponent(String(body.fileName || 'gallery-image'));
+    const contentType = String(body.contentType || 'image/jpeg');
+    const contentBase64 = String(body.contentBase64 || '');
+    const imageBody = Buffer.from(contentBase64, 'base64');
+    if (!imageBody.length) {
+      sendJson(res, 400, { error: 'Image content is empty' });
+      return;
+    }
+
+    const ext = extensionFrom(originalName, contentType);
+    const stamp = new Date().toISOString().replace(/[-:TZ.]/g, '').slice(0, 14);
+    const baseName = safePart(path.basename(originalName, path.extname(originalName)));
+    const fileName = `${galleryId}-${baseName}-${stamp}${ext}`;
+    const relative = `assets/images/galerie/${galleryId}/${fileName}`;
+    const sourceImageTarget = path.join(projectRoot, relative);
+    const publicImageTarget = path.join(publicRoot, relative);
+    const normalizedGallery = {
+      ...gallery,
+      id: galleryId,
+      images: (Array.isArray(gallery.images) ? gallery.images : []).map((item) => {
+        if (item && item.id === image.id) {
+          const { url, previewUrl, pending, ...cleanItem } = item;
+          return { ...cleanItem, file: relative };
+        }
+        return item;
+      }),
+    };
+    const formatted = `${JSON.stringify(normalizedGallery, null, 2)}\n`;
+    const sourceJsonTarget = path.join(projectRoot, 'content', 'galleries', `${galleryId}.json`);
+    const publicJsonTarget = path.join(publicRoot, 'content', 'galleries', `${galleryId}.json`);
+
+    fs.mkdirSync(path.dirname(sourceImageTarget), { recursive: true });
+    fs.mkdirSync(path.dirname(publicImageTarget), { recursive: true });
+    fs.mkdirSync(path.dirname(sourceJsonTarget), { recursive: true });
+    fs.mkdirSync(path.dirname(publicJsonTarget), { recursive: true });
+    fs.writeFileSync(sourceImageTarget, imageBody);
+    fs.writeFileSync(publicImageTarget, imageBody);
+    fs.writeFileSync(sourceJsonTarget, formatted, 'utf8');
+    fs.writeFileSync(publicJsonTarget, formatted, 'utf8');
+
+    sendJson(res, 200, { ok: true, src: relative, gallery: normalizedGallery });
+  } catch (error) {
+    sendJson(res, 500, { error: error.message || 'Gallery image save failed' });
+  }
+}
+
 function blogPostsPath(base = projectRoot) {
   return path.join(base, 'content', 'blog-posts.json');
 }
@@ -555,6 +616,10 @@ http.createServer((req, res) => {
   }
   if (req.method === 'POST' && req.url.split('?')[0] === '/__cms/gallery-images') {
     handleGalleryImageUpload(req, res);
+    return;
+  }
+  if (req.method === 'POST' && req.url.split('?')[0] === '/__cms/gallery-image-with-json') {
+    handleGalleryImageWithJson(req, res);
     return;
   }
   const gallerySaveMatch = req.url.split('?')[0].match(/^\/__cms\/galleries\/([^/]+)$/);

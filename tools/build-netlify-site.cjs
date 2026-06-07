@@ -90,8 +90,8 @@ function transformHtmlFile(file) {
   const inPages = file.replace(/\\/g, '/').startsWith('pages/');
   const prefix = inPages ? '../' : '';
   if (hasGalleryPage(file, html)) {
-    html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=netlify-phase3`);
-    html = appendScript(html, `${prefix}js/netlify-gallery-renderer.js?v=netlify-phase8`);
+    html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=gallery-atomic-20260607`);
+    html = appendScript(html, `${prefix}js/netlify-gallery-renderer.js?v=gallery-atomic-20260607`);
     html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=netlify-phase3`);
   }
   if (hasBlogArticlePage(file)) {

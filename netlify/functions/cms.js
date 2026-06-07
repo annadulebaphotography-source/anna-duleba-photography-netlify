@@ -236,6 +236,31 @@ function githubUrl(config, filePath) {
   return `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${encodedPath}`;
 }
 
+function githubApiUrl(config, path) {
+  return `https://api.github.com/repos/${config.owner}/${config.repo}${path}`;
+}
+
+async function githubApi(config, path, options = {}) {
+  requireToken(config);
+  const res = await fetch(githubApiUrl(config, path), {
+    ...options,
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${config.token}`,
+      'Content-Type': 'application/json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(options.headers || {}),
+    },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const error = new Error(data.message || `GitHub request failed: ${path}`);
+    error.statusCode = res.status;
+    throw error;
+  }
+  return data;
+}
+
 async function githubFetch(config, filePath, options = {}) {
   requireToken(config);
   const url = `${githubUrl(config, filePath)}?ref=${encodeURIComponent(config.branch)}`;
@@ -337,6 +362,55 @@ async function writeGithubFile(config, filePath, contentBuffer, message) {
 async function writeJsonFile(config, filePath, data, message) {
   const formatted = `${JSON.stringify(data, null, 2)}\n`;
   await writeGithubFile(config, filePath, Buffer.from(formatted, 'utf8'), message);
+}
+
+async function createGithubBlob(config, contentBuffer, encoding = 'base64') {
+  const blob = await githubApi(config, '/git/blobs', {
+    method: 'POST',
+    body: JSON.stringify({
+      content: encoding === 'utf-8'
+        ? Buffer.from(contentBuffer).toString('utf8')
+        : Buffer.from(contentBuffer).toString('base64'),
+      encoding,
+    }),
+  });
+  return blob.sha;
+}
+
+async function writeGithubFiles(config, files, message) {
+  const ref = await githubApi(config, `/git/ref/heads/${encodeURIComponent(config.branch)}`);
+  const baseCommit = await githubApi(config, `/git/commits/${encodeURIComponent(ref.object.sha)}`);
+  const tree = [];
+
+  for (const file of files) {
+    tree.push({
+      path: normalizePath(file.path),
+      mode: '100644',
+      type: 'blob',
+      sha: await createGithubBlob(config, file.content, file.encoding || 'base64'),
+    });
+  }
+
+  const nextTree = await githubApi(config, '/git/trees', {
+    method: 'POST',
+    body: JSON.stringify({
+      base_tree: baseCommit.tree.sha,
+      tree,
+    }),
+  });
+  const nextCommit = await githubApi(config, '/git/commits', {
+    method: 'POST',
+    body: JSON.stringify({
+      message,
+      tree: nextTree.sha,
+      parents: [ref.object.sha],
+    }),
+  });
+  await githubApi(config, `/git/refs/heads/${encodeURIComponent(config.branch)}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ sha: nextCommit.sha }),
+  });
+  return nextCommit;
 }
 
 function escapeHtml(value) {
@@ -485,6 +559,45 @@ async function uploadGalleryImage(event, config) {
   return response(200, { src: relative });
 }
 
+async function uploadGalleryImageWithJson(event, config) {
+  const galleryId = safePart(event.headers['x-gallery-id'] || event.headers['X-Gallery-Id'] || 'gallery');
+  const body = JSON.parse(textBody(event) || '{}');
+  const gallery = body.gallery;
+  const image = body.image;
+  if (!gallery || typeof gallery !== 'object' || Array.isArray(gallery)) return response(400, { error: 'Gallery data is required' });
+  if (!image || typeof image !== 'object' || Array.isArray(image)) return response(400, { error: 'Image data is required' });
+  const originalName = decodeURIComponent(String(body.fileName || 'gallery-image'));
+  const contentType = String(body.contentType || 'image/jpeg');
+  const contentBase64 = String(body.contentBase64 || '');
+  if (!contentBase64) return response(400, { error: 'Image content is required' });
+
+  const imageBuffer = Buffer.from(contentBase64, 'base64');
+  if (!imageBuffer.length) return response(400, { error: 'Image content is empty' });
+
+  const baseName = safePart(originalName.replace(/\.[^.]+$/, ''), 'image');
+  const ext = extensionFrom(originalName, contentType);
+  const relative = `assets/images/galerie/${galleryId}/${galleryId}-${baseName}-${nowStamp()}${ext}`;
+  const normalizedGallery = {
+    ...gallery,
+    id: galleryId,
+    images: (Array.isArray(gallery.images) ? gallery.images : []).map((item) => {
+      if (item && item.id === image.id) {
+        const { url, previewUrl, pending, ...cleanItem } = item;
+        return { ...cleanItem, file: relative };
+      }
+      return item;
+    }),
+  };
+  const jsonBuffer = Buffer.from(`${JSON.stringify(normalizedGallery, null, 2)}\n`, 'utf8');
+
+  await writeGithubFiles(config, [
+    { path: relative, content: imageBuffer, encoding: 'base64' },
+    { path: `content/galleries/${galleryId}.json`, content: jsonBuffer, encoding: 'utf-8' },
+  ], `CMS: add gallery image ${galleryId}`);
+
+  return response(200, { ok: true, src: relative, gallery: normalizedGallery });
+}
+
 async function saveBlogPost(event, config, postId) {
   const body = JSON.parse(textBody(event) || '{}');
   const posts = await readGithubFile(config, 'content/blog-posts.json', []);
@@ -614,6 +727,7 @@ exports.handler = async (event) => {
     if (method === 'POST' && path === '/api/content') return saveContent(event, config);
     if (method === 'POST' && (path === '/images' || path === '/api/content/images')) return uploadContentImage(event, config);
     if (method === 'POST' && path === '/gallery-images') return uploadGalleryImage(event, config);
+    if (method === 'POST' && path === '/gallery-image-with-json') return uploadGalleryImageWithJson(event, config);
     if (method === 'PUT' && /^\/galleries\/[^/]+$/.test(path)) return saveGallery(event, config, path.split('/').pop());
     if (method === 'POST' && path === '/blog-images') return uploadBlogImage(event, config);
     if (method === 'POST' && path === '/blog-posts') return createBlogPost(event, config);

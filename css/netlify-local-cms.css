@@ -288,8 +288,11 @@
 
 .adp-gallery-cms-bar {
     display: flex;
+    align-items: center;
+    gap: 14px;
     justify-content: center;
     margin: 24px 0;
+    flex-wrap: wrap;
 }
 
 .adp-gallery-cms-add,
@@ -305,6 +308,13 @@
 
 .adp-gallery-cms-add {
     padding: 12px 18px;
+}
+
+.adp-gallery-cms-status {
+    color: #5f4b3f;
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 360px;
 }
 
 .adp-gallery-cms-delete {

@@ -22,6 +22,7 @@
     let touchStartX = 0;
     let touchStartY = 0;
     let activeGalleryId = null;
+    const localGalleryPreviews = new Map();
 
     function pageSlug() {
         const file = window.location.pathname.split('/').pop() || '';
@@ -39,6 +40,7 @@
     }
 
     function normalizeAssetUrl(image) {
+        if (image?.id && localGalleryPreviews.has(image.id)) return localGalleryPreviews.get(image.id);
         if (image.url) return image.url;
         const file = String(image.file || '').replace(/\\/g, '/');
         return file.startsWith('/') ? file : `/${file}`;
@@ -244,6 +246,37 @@
         return data.src;
     }
 
+    function blobToBase64(blob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result || '').split(',').pop() || '');
+            reader.onerror = () => reject(reader.error || new Error('Image read failed'));
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    async function uploadGalleryImageWithJson(file, gallery, image) {
+        const uploadFile = await prepareImageForUpload(file);
+        const contentBase64 = await blobToBase64(uploadFile);
+        const response = await cmsFetch('/__cms/gallery-image-with-json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Gallery-ID': activeGalleryId,
+            },
+            body: JSON.stringify({
+                gallery,
+                image,
+                fileName: uploadFile.name || file.name || 'gallery-image',
+                contentType: uploadFile.type || file.type || 'application/octet-stream',
+                contentBase64,
+            }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.gallery) throw new Error(data.error || 'Gallery image save failed');
+        return data.gallery;
+    }
+
     function prepareImageForUpload(file) {
         if (!file || !file.type?.startsWith('image/')) return Promise.resolve(file);
         if (file.type === 'image/gif' || file.size <= 1800 * 1024) return Promise.resolve(file);
@@ -283,27 +316,29 @@
     async function addGalleryImages(files) {
         const selectedFiles = Array.from(files || []);
         if (!selectedFiles.length || !activeGalleryId || !activeGallery) return;
-        const existingImages = visibleSortedImages(activeGallery.images || [])
-            .map((image, index) => ({ ...image, order: selectedFiles.length + index + 1 }));
-        const hiddenImages = (activeGallery.images || [])
-            .filter((image) => image.visible === false)
-            .map((image, index) => ({ ...image, order: selectedFiles.length + existingImages.length + index + 1 }));
-        const newImages = [];
+        const reversedFiles = selectedFiles.slice().reverse();
 
-        for (const [index, file] of selectedFiles.entries()) {
-            const src = await uploadGalleryImage(file);
-            newImages.push({
+        for (const [index, file] of reversedFiles.entries()) {
+            const uploadFile = await prepareImageForUpload(file);
+            const previewUrl = URL.createObjectURL(uploadFile);
+            const image = {
                 id: `${activeGalleryId}-${Date.now()}-${index + 1}`,
-                file: src,
+                file: '',
                 alt: activeGallery.title || '',
-                order: index + 1,
+                order: 1,
                 visible: true,
-            });
+            };
+            const existingImages = visibleSortedImages(activeGallery.images || [])
+                .map((item, itemIndex) => ({ ...item, order: itemIndex + 2 }));
+            const hiddenImages = (activeGallery.images || [])
+                .filter((item) => item.visible === false)
+                .map((item, itemIndex) => ({ ...item, order: existingImages.length + itemIndex + 2 }));
+            const nextGallery = { ...activeGallery, images: [image, ...existingImages, ...hiddenImages] };
+            localGalleryPreviews.set(image.id, previewUrl);
+            activeGallery = await uploadGalleryImageWithJson(uploadFile, nextGallery, image);
+            localGalleryPreviews.set(image.id, previewUrl);
+            renderGallery(activeGallery);
         }
-
-        activeGallery.images = [...newImages, ...existingImages, ...hiddenImages];
-        await saveGalleryJson();
-        renderGallery(activeGallery);
     }
 
     async function deleteGalleryImage(imageId) {
@@ -321,9 +356,11 @@
         bar.className = 'adp-gallery-cms-bar';
         bar.innerHTML = `
             <button type="button" class="adp-gallery-cms-add">+ Bilder hinzufügen</button>
+            <span class="adp-gallery-cms-status" aria-live="polite"></span>
             <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden>
         `;
         const input = bar.querySelector('input');
+        const status = bar.querySelector('.adp-gallery-cms-status');
         bar.querySelector('button').addEventListener('click', () => input.click());
         input.addEventListener('change', async () => {
             const files = Array.from(input.files || []);
@@ -333,7 +370,9 @@
                 bar.querySelector('button').disabled = true;
                 bar.querySelector('button').textContent = `Upload ${files.length} Bilder...`;
                 await addGalleryImages(files);
+                status.textContent = 'Gespeichert. Die neuen Bilder werden bis zum Netlify-Deploy lokal angezeigt.';
             } catch (error) {
+                status.textContent = '';
                 window.alert(error.message || 'Upload failed');
             } finally {
                 bar.querySelector('button').disabled = false;
