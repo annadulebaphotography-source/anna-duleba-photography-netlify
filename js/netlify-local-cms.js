@@ -129,13 +129,40 @@
         return fields;
     }
 
-    function savePage() {
-        updatePageDraft(collectPage());
-        setStatus('Zapisane lokalnie');
+    async function savePage() {
+        const fields = collectPage();
+        updatePageDraft(fields);
+        if (!page) {
+            setStatus('Zapisane lokalnie');
+            return;
+        }
+        setStatus('Zapisywanie...');
+        try {
+            const response = await cmsFetch('/api/content', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ page, fields }),
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(data.error || 'Nie udalo sie zapisac zmian.');
+            writeDraft({ ...readDraft(), [page]: data[page] || fields });
+            setStatus('Zapisane online');
+        } catch (error) {
+            setStatus('Zapis lokalny. Online nie zapisano.');
+            window.alert(error.message || 'Nie udalo sie zapisac zmian online.');
+            throw error;
+        }
     }
 
-    function downloadJson() {
-        savePage();
+    async function downloadJson() {
+        try {
+            await savePage();
+        } catch {
+            // Export the local draft even when the online save is blocked.
+        }
         const blob = new Blob([JSON.stringify(readDraft(), null, 2)], { type: 'application/json;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -276,7 +303,9 @@
         `;
         document.body.appendChild(toolbar);
         toolbar.querySelector('[data-cms-edit]').addEventListener('click', () => setEditing(true));
-        toolbar.querySelector('[data-cms-save]').addEventListener('click', savePage);
+        toolbar.querySelector('[data-cms-save]').addEventListener('click', () => {
+            savePage().catch(() => {});
+        });
         toolbar.querySelector('[data-cms-finish]').addEventListener('click', () => setEditing(false));
         toolbar.querySelector('[data-cms-export]').addEventListener('click', downloadJson);
         toolbar.querySelector('[data-cms-import]').addEventListener('change', (event) => {
@@ -324,7 +353,7 @@
         }
         if (editing && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
             event.preventDefault();
-            savePage();
+            savePage().catch(() => {});
         }
     });
 
