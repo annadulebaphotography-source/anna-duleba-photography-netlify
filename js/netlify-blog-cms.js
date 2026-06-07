@@ -31,6 +31,16 @@
         return `${prefix}${path.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '')}`;
     }
 
+    function slugify(value) {
+        return String(value || '')
+            .toLowerCase()
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 80);
+    }
+
     function escapeHtml(value) {
         return String(value || '')
             .replaceAll('&', '&amp;')
@@ -186,6 +196,33 @@
         setStatus('Blog zapisany');
     }
 
+    async function createPost() {
+        const title = window.prompt('Tytul nowego bloga:');
+        if (!title) return;
+        const category = window.prompt('Kategoria, np. newborn, babybauch, familie:', post?.category || 'newborn') || 'blog';
+        const metaDescription = window.prompt('Krotki opis pod SEO / podtytul:', 'Nowy Blogbeitrag von Anna Duleba Photography.') || '';
+        setStatus('Tworze nowy artykul...');
+        const response = await fetch('/__cms/blog-posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: title.trim(),
+                slug: slugify(title),
+                category: category.trim(),
+                metaDescription: metaDescription.trim(),
+            }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.post) {
+            window.alert(data.error || 'Nie udalo sie utworzyc bloga.');
+            setStatus('Blog CMS');
+            return;
+        }
+        const editUrl = `/blog/${data.post.slug}/?edit=1&v=${Date.now()}`;
+        setStatus('Artykul utworzony. Poczekaj na deploy Netlify.');
+        window.alert(`Artykul zostal utworzony.\n\nNetlify musi teraz skonczyc deploy. Po deployu otworz:\n${editUrl}`);
+    }
+
     function downloadJson() {
         const blob = new Blob([JSON.stringify(collectPost(), null, 2)], { type: 'application/json;charset=utf-8' });
         const link = document.createElement('a');
@@ -304,6 +341,7 @@
         toolbar.className = 'adp-local-cms-toolbar adp-blog-cms-toolbar';
         toolbar.innerHTML = `
             <span data-blog-cms-status>Blog CMS</span>
+            <button type="button" data-blog-cms-create>+ Nowy artykul</button>
             <button type="button" data-blog-cms-edit>Edytuj</button>
             <button type="button" data-blog-cms-save hidden>Zapisz</button>
             <button type="button" data-blog-cms-finish hidden>Podglad</button>
@@ -313,6 +351,7 @@
             <button type="button" data-blog-cms-export>Export JSON</button>
             <button type="button" data-blog-cms-close>Zamknij</button>`;
         document.body.appendChild(toolbar);
+        toolbar.querySelector('[data-blog-cms-create]').addEventListener('click', createPost);
         toolbar.querySelector('[data-blog-cms-edit]').addEventListener('click', () => setEditing(true));
         toolbar.querySelector('[data-blog-cms-save]').addEventListener('click', savePost);
         toolbar.querySelector('[data-blog-cms-finish]').addEventListener('click', () => setEditing(false));
