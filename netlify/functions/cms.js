@@ -128,6 +128,33 @@ async function getSha(config, filePath) {
   }
 }
 
+async function deleteGithubFile(config, filePath, message) {
+  requireToken(config);
+  const sha = await getSha(config, filePath);
+  if (!sha) return false;
+  const res = await fetch(githubUrl(config, filePath), {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${config.token}`,
+      'Content-Type': 'application/json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+    body: JSON.stringify({
+      message,
+      sha,
+      branch: config.branch,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const error = new Error(data.message || `GitHub delete failed for ${filePath}`);
+    error.statusCode = res.status;
+    throw error;
+  }
+  return true;
+}
+
 async function writeGithubFile(config, filePath, contentBuffer, message) {
   requireToken(config);
   const sha = await getSha(config, filePath);
@@ -317,6 +344,19 @@ async function saveBlogPost(event, config, postId) {
   return response(200, { ok: true, post: posts[index] });
 }
 
+async function deleteBlogPost(event, config, postId) {
+  const posts = await readGithubFile(config, 'content/blog-posts.json', []);
+  const index = posts.findIndex((item) => item.id === postId);
+  if (index === -1) return response(404, { error: 'Blog post not found' });
+  const [removed] = posts.splice(index, 1);
+  await writeJsonFile(config, 'content/blog-posts.json', posts, `CMS: delete blog ${removed.slug || postId}`);
+  const sourceFile = String(removed.sourceFile || `pages/blog-${removed.slug}.html`);
+  if (/^pages\/blog-[a-z0-9-]+\.html$/.test(sourceFile)) {
+    await deleteGithubFile(config, sourceFile, `CMS: delete blog page ${removed.slug || postId}`);
+  }
+  return response(200, { ok: true, post: removed });
+}
+
 async function createBlogPost(event, config) {
   const body = JSON.parse(textBody(event) || '{}');
   const posts = await readGithubFile(config, 'content/blog-posts.json', []);
@@ -423,6 +463,7 @@ exports.handler = async (event) => {
     if (method === 'POST' && path === '/blog-images') return uploadBlogImage(event, config);
     if (method === 'POST' && path === '/blog-posts') return createBlogPost(event, config);
     if (method === 'PUT' && /^\/blog-posts\/[^/]+$/.test(path)) return saveBlogPost(event, config, decodeURIComponent(path.split('/').pop()));
+    if (method === 'DELETE' && /^\/blog-posts\/[^/]+$/.test(path)) return deleteBlogPost(event, config, decodeURIComponent(path.split('/').pop()));
     if (method === 'POST' && path === '/reviews') return createReview(event, config);
 
     return response(405, { error: `Unsupported CMS route: ${method} ${path}` });

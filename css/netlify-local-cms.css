@@ -70,13 +70,14 @@
 }
 
 .adp-local-cms-editable {
-    outline: 1px dashed rgba(107, 76, 53, .4);
-    outline-offset: 4px;
+    outline: 1px dashed rgba(107, 76, 53, .22);
+    outline-offset: 3px;
     cursor: text;
 }
 
 .adp-local-cms-editable:focus {
-    outline: 2px solid #6b4c35;
+    outline: 1px solid rgba(107, 76, 53, .55);
+    background: rgba(255, 250, 245, .55);
 }
 
 .adp-local-cms-editable-image {

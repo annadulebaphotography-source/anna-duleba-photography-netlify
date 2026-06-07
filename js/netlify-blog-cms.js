@@ -50,6 +50,14 @@
             .replaceAll('"', '&quot;');
     }
 
+    function cleanEditableText(element) {
+        return (element?.innerText || element?.textContent || '')
+            .replace(/\u00a0/g, ' ')
+            .replace(/[ \t]+\n/g, '\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+    }
+
     function setStatus(message) {
         const status = toolbar?.querySelector('[data-blog-cms-status]');
         if (status) status.textContent = message;
@@ -64,6 +72,10 @@
         if (slug === 'neugeborene') return 'newborn';
         if (slug === 'babybauch') return 'babybauch';
         return post?.category || '';
+    }
+
+    function canDeleteCurrentPost() {
+        return post && !new Set(['neugeborene', 'babybauch']).has(post.slug);
     }
 
     function blockHtml(block) {
@@ -162,6 +174,7 @@
             toolbar.querySelector('[data-blog-cms-add-paragraph]').hidden = !editing;
             toolbar.querySelector('[data-blog-cms-add-heading]').hidden = !editing;
             toolbar.querySelector('[data-blog-cms-add-image]').hidden = !editing;
+            toolbar.querySelector('[data-blog-cms-delete]').hidden = !canDeleteCurrentPost();
         }
         setStatus(editing ? 'Edycja bloga aktywna' : 'Blog CMS');
     }
@@ -174,7 +187,7 @@
     function collectPost() {
         const next = { ...post };
         document.querySelectorAll('[data-blog-post-field]').forEach((element) => {
-            next[element.dataset.blogPostField] = element.innerHTML.trim();
+            next[element.dataset.blogPostField] = cleanEditableText(element);
         });
         const hero = document.querySelector('[data-blog-post-image="heroImage"]');
         if (hero) {
@@ -188,11 +201,11 @@
             const type = element.dataset.blogType;
             const id = element.dataset.blogBlock || uid();
             if (type === 'list') {
-                return { id, type, items: Array.from(element.querySelectorAll('[data-blog-list-item]')).map((item) => item.innerHTML.trim()).filter(Boolean) };
+                return { id, type, items: Array.from(element.querySelectorAll('[data-blog-list-item]')).map(cleanEditableText).filter(Boolean) };
             }
             if (type === 'link') {
                 const link = element.querySelector('a');
-                return { id, type, text: link?.innerHTML.trim() || '', href: link?.getAttribute('href') || '#' };
+                return { id, type, text: cleanEditableText(link), href: link?.getAttribute('href') || '#' };
             }
             if (type === 'image') {
                 const img = element.querySelector('img');
@@ -202,10 +215,10 @@
                     type,
                     src: (img?.dataset.blogSrc || img?.getAttribute('src') || '').replace(/^(\.\.\/)+/, '').replace(/^\/+/, ''),
                     alt: img?.getAttribute('alt') || '',
-                    caption: caption?.innerHTML.trim() || '',
+                    caption: cleanEditableText(caption),
                 };
             }
-            const text = element.innerHTML.trim();
+            const text = cleanEditableText(element);
             return { id, type, text };
         });
         return next;
@@ -226,6 +239,28 @@
         }
         post = data.post || next;
         setStatus('Blog zapisany');
+    }
+
+    async function deletePost() {
+        if (!canDeleteCurrentPost()) {
+            window.alert('Tej strony kategorii nie usuwamy. Usuwac mozna pojedyncze artykuly.');
+            return;
+        }
+        const ok = window.confirm(`Usunac artykul?\n\n${post.title}`);
+        if (!ok) return;
+        setStatus('Usuwam artykul...');
+        const response = await fetch(`/__cms/blog-posts/${encodeURIComponent(post.id)}`, {
+            method: 'DELETE',
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            window.alert(data.error || 'Nie udalo sie usunac artykulu.');
+            setStatus('Blog CMS');
+            return;
+        }
+        setStatus('Artykul usuniety. Poczekaj na deploy Netlify.');
+        window.alert('Artykul zostal usuniety. Netlify musi teraz skonczyc deploy.');
+        window.location.href = '/pages/blog-neugeborene.html?edit=1';
     }
 
     async function submitNewPost(fields, statusElement) {
@@ -424,6 +459,7 @@
             <button type="button" data-blog-cms-add-paragraph hidden>+ Akapit</button>
             <button type="button" data-blog-cms-add-heading hidden>+ Naglowek</button>
             <button type="button" data-blog-cms-add-image hidden>+ Zdjecie</button>
+            <button type="button" data-blog-cms-delete>Usun artykul</button>
             <button type="button" data-blog-cms-export>Export JSON</button>
             <button type="button" data-blog-cms-close>Zamknij</button>`;
         document.body.appendChild(toolbar);
@@ -434,6 +470,7 @@
         toolbar.querySelector('[data-blog-cms-add-paragraph]').addEventListener('click', () => addBlock('paragraph'));
         toolbar.querySelector('[data-blog-cms-add-heading]').addEventListener('click', () => addBlock('h2'));
         toolbar.querySelector('[data-blog-cms-add-image]').addEventListener('click', () => addBlock('image'));
+        toolbar.querySelector('[data-blog-cms-delete]').addEventListener('click', deletePost);
         toolbar.querySelector('[data-blog-cms-export]').addEventListener('click', downloadJson);
         toolbar.querySelector('[data-blog-cms-close]').addEventListener('click', () => {
             setEditing(false);
@@ -477,6 +514,13 @@
             savePost();
         }
     });
+
+    document.addEventListener('paste', (event) => {
+        if (!editing || !event.target.closest('[contenteditable="true"]')) return;
+        event.preventDefault();
+        const text = event.clipboardData?.getData('text/plain') || '';
+        document.execCommand('insertText', false, text);
+    }, true);
 
     window.addEventListener('beforeunload', () => {
         temporaryPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
