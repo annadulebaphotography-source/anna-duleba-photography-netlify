@@ -44,6 +44,14 @@
         return file.startsWith('/') ? file : `/${file}`;
     }
 
+    function versionedAssetUrl(image) {
+        const url = normalizeAssetUrl(image);
+        if (!url || /^https?:|^data:|^blob:/i.test(url)) return url;
+        const separator = url.includes('?') ? '&' : '?';
+        const version = encodeURIComponent(image.id || image.file || Date.now());
+        return `${url}${separator}v=${version}`;
+    }
+
     function cmsFetch(url, options) {
         if (!window.adpCmsAuth?.fetch) throw new Error('CMS auth helper is not loaded');
         return window.adpCmsAuth.fetch(url, options);
@@ -74,11 +82,11 @@
     function renderImages(images) {
         const visible = visibleSortedImages(images);
         return visible.map((image, index) => {
-            const url = normalizeAssetUrl(image);
+            const url = versionedAssetUrl(image);
             return [
                 `<div class="${itemClass(image)}" data-gallery-image-id="${escapeHtml(image.id)}">`,
                 `    <a class="adp-gallery-image-link" href="${escapeHtml(url)}" data-lightbox-index="${index}">`,
-                `        <img src="${escapeHtml(url)}" alt="${escapeHtml(image.alt || '')}" loading="lazy">`,
+                `        <img src="${escapeHtml(url)}" alt="${escapeHtml(image.alt || '')}" loading="lazy" data-gallery-retry-src="${escapeHtml(url)}">`,
                 '    </a>',
                 renderEditControls(image),
                 '</div>',
@@ -153,7 +161,7 @@
         if (!images.length) return;
         lightboxIndex = (index + images.length) % images.length;
         const image = images[lightboxIndex];
-        lightboxImage.src = normalizeAssetUrl(image);
+        lightboxImage.src = versionedAssetUrl(image);
         lightboxImage.alt = image.alt || '';
         lightboxCounter.textContent = `${lightboxIndex + 1} / ${images.length}`;
     }
@@ -190,6 +198,17 @@
     }
 
     function attachLightboxEvents() {
+        activeGrid.querySelectorAll('img[data-gallery-retry-src]').forEach((image) => {
+            image.addEventListener('error', () => {
+                if (image.dataset.galleryRetried === '1') return;
+                image.dataset.galleryRetried = '1';
+                const base = image.dataset.galleryRetrySrc;
+                const separator = base.includes('?') ? '&' : '?';
+                window.setTimeout(() => {
+                    image.src = `${base}${separator}retry=${Date.now()}`;
+                }, 800);
+            }, { once: false });
+        });
         activeGrid.querySelectorAll('[data-lightbox-index]').forEach((link) => {
             link.addEventListener('click', (event) => {
                 if (event.target.closest('[data-gallery-delete]')) return;
