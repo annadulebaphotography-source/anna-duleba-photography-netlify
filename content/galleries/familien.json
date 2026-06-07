@@ -20,6 +20,13 @@
   },
   "images": [
     {
+      "id": "familien-1780853374138-1",
+      "file": "assets/images/galerie/familien/familien-dsc-8977-kopie-20260607172935.jpg",
+      "alt": "Familien Galerie",
+      "order": 1,
+      "visible": true
+    },
+    {
       "id": "familien-1780836230134-2",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe02-20260607124350.jpg",
       "alt": "Familien Galerie",
@@ -44,35 +51,35 @@
       "id": "familien-1780836157339-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe06-20260607124237.jpg",
       "alt": "Familien Galerie",
-      "order": 6,
+      "order": 5,
       "visible": true
     },
     {
       "id": "familien-1780835939452-1",
       "file": "assets/images/galerie/familien/familien-familienfotografie-karlsruhe-familie-mit-zwei-kindern-im-lavendelfeld-fine-art-stil-20260607123859.jpg",
       "alt": "Familien Galerie",
-      "order": 7,
+      "order": 6,
       "visible": true
     },
     {
       "id": "familien-1780835632259-1",
       "file": "assets/images/galerie/familien/familien-fineart-karlsruhe-anna-duleba1-kopie-20260607123321.png",
       "alt": "Familien Galerie",
-      "order": 8,
+      "order": 7,
       "visible": true
     },
     {
       "id": "familien-1780833769516-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe02-20260607120249.jpg",
       "alt": "Familien Galerie",
-      "order": 9,
+      "order": 8,
       "visible": true
     },
     {
       "id": "familien-1780832885345-1",
       "file": "assets/images/galerie/familien/familien-familienshooting-karlsruhe01-20260607114805.jpg",
       "alt": "Familien Galerie",
-      "order": 10,
+      "order": 9,
       "visible": true
     }
   ],
