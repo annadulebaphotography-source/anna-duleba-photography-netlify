@@ -206,7 +206,7 @@
             URL.revokeObjectURL(previewUrl);
             return { src: data.src };
         } catch (error) {
-            if (/CMS_ACCESS_TOKEN|autoryzacji|auth helper/i.test(error.message || '')) {
+            if (/Firebase|autoryzacji|zalogowac|auth helper/i.test(error.message || '')) {
                 window.alert(error.message);
                 throw error;
             }

@@ -60,7 +60,7 @@ function appendScript(html, src) {
 function ensureCmsAuthScript(html, prefix) {
   if (html.includes('netlify-cms-auth.js')) return html;
   if (!/js\/netlify-(?:local-cms|gallery-renderer|blog-cms|blog-list-cms|reviews)\.js/i.test(html)) return html;
-  const script = `    <script src="${prefix}js/netlify-cms-auth.js?v=cms-auth-20260607"></script>\n`;
+  const script = `    <script src="${prefix}js/netlify-cms-auth.js?v=firebase-login-20260607"></script>\n`;
   const cmsScript = /\s*<script[^>]+src=["'][^"']*js\/netlify-(?:local-cms|gallery-renderer|blog-cms|blog-list-cms|reviews)\.js[^"']*["'][^>]*>\s*<\/script>/i;
   return html.replace(cmsScript, (match) => `\n${script}${match}`);
 }
@@ -203,7 +203,7 @@ mirrorBlogRoutes();
 
 writeText('_headers', [
   '/*',
-  "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com; frame-src 'self' https://docs.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com; frame-ancestors 'self'; upgrade-insecure-requests",
+  "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://docs.google.com https://accounts.google.com https://*.firebaseapp.com; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com; frame-ancestors 'self'; upgrade-insecure-requests",
   '  X-Content-Type-Options: nosniff',
   '  X-Frame-Options: SAMEORIGIN',
   '  Referrer-Policy: strict-origin-when-cross-origin',

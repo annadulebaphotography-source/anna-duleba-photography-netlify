@@ -3,6 +3,8 @@ const crypto = require('crypto');
 const DEFAULT_OWNER = 'annadulebaphotography-source';
 const DEFAULT_REPO = 'anna-duleba-photography-netlify';
 const DEFAULT_BRANCH = 'main';
+const FIREBASE_CERTS_URL = 'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com';
+let firebaseCertCache = { expiresAt: 0, certs: {} };
 
 const jsonHeaders = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -57,28 +59,142 @@ function cmsAccessToken() {
   return String(process.env.CMS_ACCESS_TOKEN || '').trim();
 }
 
+function firebaseConfig() {
+  return {
+    apiKey: process.env.FIREBASE_API_KEY || '',
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN || '',
+    projectId: process.env.FIREBASE_PROJECT_ID || '',
+    appId: process.env.FIREBASE_APP_ID || '',
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || '',
+  };
+}
+
+function publicFirebaseConfig() {
+  const config = firebaseConfig();
+  return {
+    ok: Boolean(config.apiKey && config.authDomain && config.projectId && config.appId),
+    config,
+  };
+}
+
+function adminEmails() {
+  return String(process.env.ADMIN_EMAILS || '')
+    .split(/[,\s;]+/)
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+}
+
 function timingSafeMatch(actual, expected) {
   const actualBuffer = Buffer.from(String(actual || ''), 'utf8');
   const expectedBuffer = Buffer.from(String(expected || ''), 'utf8');
   return actualBuffer.length === expectedBuffer.length && crypto.timingSafeEqual(actualBuffer, expectedBuffer);
 }
 
-function requireCmsAuthorization(event) {
-  const expected = cmsAccessToken();
-  if (!expected) {
-    const error = new Error('CMS_ACCESS_TOKEN is not configured in Netlify environment variables.');
+function base64UrlJson(value) {
+  const normalized = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
+  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+  return JSON.parse(Buffer.from(padded, 'base64').toString('utf8'));
+}
+
+function base64UrlBuffer(value) {
+  const normalized = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
+  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+  return Buffer.from(padded, 'base64');
+}
+
+async function firebaseCerts() {
+  if (firebaseCertCache.expiresAt > Date.now() && Object.keys(firebaseCertCache.certs).length) {
+    return firebaseCertCache.certs;
+  }
+  const res = await fetch(FIREBASE_CERTS_URL);
+  const certs = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const error = new Error('Firebase certificate fetch failed.');
+    error.statusCode = 401;
+    throw error;
+  }
+  const cacheControl = res.headers.get('cache-control') || '';
+  const maxAge = Number(cacheControl.match(/max-age=(\d+)/)?.[1] || 300);
+  firebaseCertCache = {
+    expiresAt: Date.now() + Math.max(60, maxAge) * 1000,
+    certs,
+  };
+  return certs;
+}
+
+async function verifyFirebaseToken(token) {
+  const config = firebaseConfig();
+  const allowedEmails = adminEmails();
+  if (!config.projectId || !allowedEmails.length) {
+    const error = new Error('Firebase CMS login is not configured. Set FIREBASE_PROJECT_ID and ADMIN_EMAILS in Netlify.');
     error.statusCode = 401;
     throw error;
   }
 
+  const parts = String(token || '').split('.');
+  if (parts.length !== 3) {
+    const error = new Error('Invalid Firebase token.');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  let header;
+  let payload;
+  try {
+    header = base64UrlJson(parts[0]);
+    payload = base64UrlJson(parts[1]);
+  } catch {
+    const error = new Error('Invalid Firebase token.');
+    error.statusCode = 401;
+    throw error;
+  }
+  const cert = (await firebaseCerts())[header.kid];
+  if (!cert) {
+    const error = new Error('Unknown Firebase token key.');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const verifier = crypto.createVerify('RSA-SHA256');
+  verifier.update(`${parts[0]}.${parts[1]}`);
+  verifier.end();
+  if (!verifier.verify(cert, base64UrlBuffer(parts[2]))) {
+    const error = new Error('Invalid Firebase token signature.');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const expectedIssuer = `https://securetoken.google.com/${config.projectId}`;
+  const email = String(payload.email || '').toLowerCase();
+  if (
+    payload.aud !== config.projectId ||
+    payload.iss !== expectedIssuer ||
+    !payload.sub ||
+    Number(payload.exp || 0) <= now ||
+    payload.email_verified === false ||
+    !allowedEmails.includes(email)
+  ) {
+    const error = new Error('This Google account is not allowed to use the CMS.');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  return { email, uid: payload.sub };
+}
+
+async function requireCmsAuthorization(event) {
+  const expected = cmsAccessToken();
   const header = String(event.headers?.authorization || event.headers?.Authorization || '').trim();
   const match = header.match(/^Bearer\s+(.+)$/i);
   const actual = match ? String(match[1] || '').trim() : '';
-  if (!actual || !timingSafeMatch(actual, expected)) {
+  if (!actual) {
     const error = new Error('Unauthorized CMS request.');
     error.statusCode = 401;
     throw error;
   }
+  if (expected && timingSafeMatch(actual, expected)) return { type: 'static-token' };
+  return verifyFirebaseToken(actual);
 }
 
 function isWriteMethod(method) {
@@ -487,7 +603,9 @@ exports.handler = async (event) => {
     const method = event.httpMethod || 'GET';
     const path = routePath(event);
 
-    if (isWriteMethod(method)) requireCmsAuthorization(event);
+    if (method === 'GET' && path === '/config') return response(200, publicFirebaseConfig());
+
+    if (isWriteMethod(method)) await requireCmsAuthorization(event);
 
     if (method === 'GET' && path === '/api/content') {
       return response(200, await readGithubFile(config, 'content/site-content.json', {}));
