@@ -210,18 +210,55 @@
     }
 
     async function uploadGalleryImage(file) {
+        const uploadFile = await prepareImageForUpload(file);
         const response = await cmsFetch('/__cms/gallery-images', {
             method: 'POST',
             headers: {
-                'Content-Type': file.type || 'application/octet-stream',
+                'Content-Type': uploadFile.type || file.type || 'application/octet-stream',
                 'X-Gallery-ID': activeGalleryId,
-                'X-File-Name': encodeURIComponent(file.name || 'image'),
+                'X-File-Name': encodeURIComponent(uploadFile.name || file.name || 'gallery-image'),
             },
-            body: file,
+            body: uploadFile,
         });
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.src) throw new Error(data.error || 'Image upload failed');
         return data.src;
+    }
+
+    function prepareImageForUpload(file) {
+        if (!file || !file.type?.startsWith('image/')) return Promise.resolve(file);
+        if (file.type === 'image/gif' || file.size <= 1800 * 1024) return Promise.resolve(file);
+        return new Promise((resolve) => {
+            const image = new Image();
+            const objectUrl = URL.createObjectURL(file);
+            image.onload = () => {
+                URL.revokeObjectURL(objectUrl);
+                const maxSide = 1800;
+                const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+                if (scale >= 1 && file.size <= 2400 * 1024) {
+                    resolve(file);
+                    return;
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(image.width * scale));
+                canvas.height = Math.max(1, Math.round(image.height * scale));
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        resolve(file);
+                        return;
+                    }
+                    const cleanName = (file.name || 'gallery-image').replace(/\.[^.]+$/, '');
+                    resolve(new File([blob], `${cleanName}.jpg`, { type: 'image/jpeg' }));
+                }, 'image/jpeg', 0.84);
+            };
+            image.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                resolve(file);
+            };
+            image.src = objectUrl;
+        });
     }
 
     async function addGalleryImages(files) {
