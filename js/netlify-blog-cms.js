@@ -17,6 +17,7 @@
     let editing = false;
     let toolbar = null;
     let imagePanel = null;
+    let createPanel = null;
     const temporaryPreviewUrls = new Set();
 
     function uid() {
@@ -52,6 +53,17 @@
     function setStatus(message) {
         const status = toolbar?.querySelector('[data-blog-cms-status]');
         if (status) status.textContent = message;
+    }
+
+    function blogHref(item) {
+        if (location.pathname.includes('/pages/')) return `blog-${item.slug}.html`;
+        return `/blog/${item.slug}/`;
+    }
+
+    function categoryForCurrentPage() {
+        if (slug === 'neugeborene') return 'newborn';
+        if (slug === 'babybauch') return 'babybauch';
+        return post?.category || '';
     }
 
     function blockHtml(block) {
@@ -104,6 +116,25 @@
         applyEditingState();
     }
 
+    function renderCategoryCards() {
+        const grid = document.querySelector('.blog-grid');
+        const category = categoryForCurrentPage();
+        if (!grid || !category) return;
+        const categorySlugs = new Set(['neugeborene', 'babybauch']);
+        const items = posts
+            .filter((item) => item.slug && item.category === category && !categorySlugs.has(item.slug))
+            .filter((item) => item.status !== 'draft');
+        if (!items.length) return;
+        grid.innerHTML = items.map((item) => `
+            <a href="${escapeHtml(blogHref(item))}" class="blog-card">
+                <img src="${escapeHtml(publicUrl(item.cardImage || item.heroImage))}" alt="${escapeHtml(item.cardImageAlt || item.heroAlt || item.title)}">
+                <div class="blog-card-content">
+                    <h3>${escapeHtml(item.title)}</h3>
+                    <p>${escapeHtml(item.metaDescription || '')}</p>
+                </div>
+            </a>`).join('');
+    }
+
     async function loadPost() {
         const response = await fetch('/content/blog-posts.json', { cache: 'no-cache' });
         posts = await response.json();
@@ -111,6 +142,7 @@
         if (!post) return;
         post.blocks = (post.blocks || []).map((block) => ({ id: block.id || uid(), ...block }));
         renderPost();
+        renderCategoryCards();
     }
 
     function applyEditingState() {
@@ -196,31 +228,75 @@
         setStatus('Blog zapisany');
     }
 
-    async function createPost() {
-        const title = window.prompt('Tytul nowego bloga:');
-        if (!title) return;
-        const category = window.prompt('Kategoria, np. newborn, babybauch, familie:', post?.category || 'newborn') || 'blog';
-        const metaDescription = window.prompt('Krotki opis pod SEO / podtytul:', 'Nowy Blogbeitrag von Anna Duleba Photography.') || '';
+    async function submitNewPost(fields, statusElement) {
+        const title = fields.title.trim();
+        if (!title) {
+            statusElement.textContent = 'Tytul jest wymagany.';
+            return;
+        }
         setStatus('Tworze nowy artykul...');
+        statusElement.textContent = 'Tworze nowy artykul...';
         const response = await fetch('/__cms/blog-posts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                title: title.trim(),
+                title,
                 slug: slugify(title),
-                category: category.trim(),
-                metaDescription: metaDescription.trim(),
+                category: fields.category.trim() || 'blog',
+                metaDescription: fields.metaDescription.trim(),
             }),
         });
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.post) {
-            window.alert(data.error || 'Nie udalo sie utworzyc bloga.');
+            statusElement.textContent = data.error || 'Nie udalo sie utworzyc bloga.';
             setStatus('Blog CMS');
             return;
         }
         const editUrl = `/blog/${data.post.slug}/?edit=1&v=${Date.now()}`;
         setStatus('Artykul utworzony. Poczekaj na deploy Netlify.');
-        window.alert(`Artykul zostal utworzony.\n\nNetlify musi teraz skonczyc deploy. Po deployu otworz:\n${editUrl}`);
+        statusElement.innerHTML = `Artykul utworzony. Poczekaj na deploy Netlify, potem otworz: <a href="${escapeHtml(editUrl)}">${escapeHtml(editUrl)}</a>`;
+        posts.unshift(data.post);
+        renderCategoryCards();
+    }
+
+    function ensureCreatePanel() {
+        if (createPanel) return createPanel;
+        createPanel = document.createElement('div');
+        createPanel.className = 'adp-local-image-panel';
+        createPanel.innerHTML = `
+            <div class="adp-local-image-panel__dialog adp-blog-create-dialog">
+                <button type="button" class="adp-local-image-panel__close" data-create-close>&times;</button>
+                <strong>Nowy artykul bloga</strong>
+                <label>Tytul<input data-create-title></label>
+                <label>Kategoria<input data-create-category></label>
+                <label>Opis SEO / podtytul<textarea rows="5" data-create-description></textarea></label>
+                <p class="adp-local-image-panel__status" data-create-status></p>
+                <div class="adp-local-image-panel__actions">
+                    <button type="button" data-create-submit>Utworz artykul</button>
+                </div>
+            </div>`;
+        document.body.appendChild(createPanel);
+        createPanel.addEventListener('click', (event) => {
+            if (event.target === createPanel || event.target.closest('[data-create-close]')) createPanel.classList.remove('is-open');
+        });
+        createPanel.querySelector('[data-create-submit]').addEventListener('click', () => {
+            submitNewPost({
+                title: createPanel.querySelector('[data-create-title]').value,
+                category: createPanel.querySelector('[data-create-category]').value,
+                metaDescription: createPanel.querySelector('[data-create-description]').value,
+            }, createPanel.querySelector('[data-create-status]'));
+        });
+        return createPanel;
+    }
+
+    function createPost() {
+        const panel = ensureCreatePanel();
+        panel.querySelector('[data-create-title]').value = '';
+        panel.querySelector('[data-create-category]').value = categoryForCurrentPage() || 'newborn';
+        panel.querySelector('[data-create-description]').value = '';
+        panel.querySelector('[data-create-status]').textContent = '';
+        panel.classList.add('is-open');
+        window.setTimeout(() => panel.querySelector('[data-create-title]').focus(), 30);
     }
 
     function downloadJson() {
