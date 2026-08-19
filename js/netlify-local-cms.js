@@ -189,7 +189,6 @@
     }
 
     async function uploadImageFile(file, key) {
-        const previewUrl = URL.createObjectURL(file);
         try {
             const uploadFile = await prepareImageForUpload(file);
             const response = await cmsFetch('/__cms/images', {
@@ -204,14 +203,13 @@
             });
             const data = await response.json().catch(() => ({}));
             if (!response.ok || !data.src) throw new Error(data.error || 'Upload endpoint unavailable');
-            URL.revokeObjectURL(previewUrl);
             return { src: data.src };
         } catch (error) {
             if (/Firebase|autoryzacji|zalogowac|auth helper/i.test(error.message || '')) {
                 window.alert(error.message);
                 throw error;
             }
-            return { src: previewUrl, localOnly: true };
+            return { src: URL.createObjectURL(file), localOnly: true };
         }
     }
 
@@ -318,8 +316,21 @@
             };
             applyImage(element, next);
             updatePageDraft({ [element.dataset.editableImage]: next });
-            if (!src.startsWith('blob:')) panel.classList.remove('is-open');
-            setStatus('Zdjecie zapisane lokalnie');
+            if (selectedPreviewUrl && !src.startsWith('blob:') && element.tagName?.toLowerCase() === 'img') {
+                element.src = selectedPreviewUrl;
+            }
+            if (src.startsWith('blob:')) {
+                setStatus('Zdjecie zapisane tylko lokalnie');
+                return;
+            }
+            status.textContent = 'Zapisywanie zdjecia online...';
+            try {
+                await savePage();
+                status.textContent = 'Zdjecie zapisane. Netlify publikuje zmiane.';
+                window.setTimeout(() => panel.classList.remove('is-open'), 900);
+            } catch {
+                status.textContent = 'Plik wyslano, ale zmiana strony nie zostala zapisana.';
+            }
         };
         panel.classList.add('is-open');
     }

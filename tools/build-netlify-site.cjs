@@ -92,7 +92,7 @@ function transformHtmlFile(file) {
   if (hasGalleryPage(file, html)) {
     html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=gallery-atomic-20260607`);
     html = appendScript(html, `${prefix}js/netlify-gallery-renderer.js?v=gallery-speed-20260607`);
-    html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=netlify-phase3`);
+    html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=cms-image-save-20260819`);
   }
   if (hasBlogArticlePage(file)) {
     html = appendStylesheet(html, `${prefix}css/netlify-local-cms.css?v=netlify-blog-phase9`);
@@ -105,7 +105,7 @@ function transformHtmlFile(file) {
     }
     html = appendScript(html, `${prefix}js/netlify-content-loader.js?v=netlify-phase1`);
     if (!html.includes('netlify-local-cms.js')) {
-      html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=netlify-phase2`);
+      html = appendScript(html, `${prefix}js/netlify-local-cms.js?v=cms-image-save-20260819`);
     }
   }
   html = ensureCmsAuthScript(html, prefix);
