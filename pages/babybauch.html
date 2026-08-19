@@ -10,6 +10,8 @@
     <meta name="description" content="Babybauch Shooting in Karlsruhe und Walzbachtal: natürliche, elegante Schwangerschaftsfotografie mit warmem Licht und zeitlosem Fine-Art-Look." />
     <link rel="canonical" href="https://www.annadulebaphotography.de/pages/babybauch.html" />
     <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+    <link rel="preload" as="image" href="../assets/images/babybauch-hero.png" media="(min-width: 769px)" />
+    <link rel="preload" as="image" href="../assets/images/babybauch-hero-mobile.png" media="(max-width: 768px)" />
     <meta property="og:title" content="Babybauch Shooting | Anna Duleba Photography" />
     <meta property="og:description" content="Babybauch Shooting in Karlsruhe und Walzbachtal: natürliche, elegante Schwangerschaftsfotografie mit warmem Licht und zeitlosem Fine-Art-Look." />
     <meta property="og:type" content="website" />
@@ -81,7 +83,13 @@
                     alt="Babybauch Shooting Hero"
                     class="hero-image hero-image-placeholder"
                     data-image-slot
-                    title="Klicke, um Hero-Bild hochzuladen" data-editable-image="babybauch.hero-image" />
+                    title="Klicke, um Hero-Bild hochzuladen"
+                    data-editable-image="babybauch.hero-image"
+                    fetchpriority="high"
+                    decoding="sync"
+                    width="1920"
+                    height="520"
+                />
             </picture>
 
             <div class="hero-overlay"></div>

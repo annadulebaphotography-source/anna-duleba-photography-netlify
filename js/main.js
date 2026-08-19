@@ -72,12 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            event.preventDefault();
-            document.body.classList.add('fade-out');
-
-            setTimeout(function () {
-                window.location.href = link.href;
-            }, 400);
+            window.location.href = link.href;
         });
     });
 });
